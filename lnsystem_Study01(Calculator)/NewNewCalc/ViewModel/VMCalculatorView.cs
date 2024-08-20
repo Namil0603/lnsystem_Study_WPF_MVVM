@@ -32,7 +32,7 @@ namespace NewNewCalc.ViewModel
         public ICommand InputDecimal { get; }
 
         private string _currentInputField;
-        private string _lastiesInput;
+        private string _lastInput;
         private string _currentOperator;
 
         public string CurrentInputField
@@ -40,10 +40,10 @@ namespace NewNewCalc.ViewModel
             get => _currentInputField;
             set => SetField(ref _currentInputField, value);
         }
-        public string LastiesInput
+        public string LastInput
         {
-            get => _lastiesInput;
-            set => SetField(ref _lastiesInput, value);
+            get => _lastInput;
+            set => SetField(ref _lastInput, value);
         }
 
         public VMCalculatorView()
@@ -68,15 +68,10 @@ namespace NewNewCalc.ViewModel
             InputDecimal = new RelayCommand(AddDecimalPoint);
         }
 
-        public VMCalculatorView(ICommand input6)
-        {
-            Input6 = input6;
-        }
-
         private void Clear()
         {
             CurrentInputField = "";
-            LastiesInput = "";
+            LastInput = "";
             _currentOperator = null;
         }
 
@@ -92,7 +87,7 @@ namespace NewNewCalc.ViewModel
         {
             if (!string.IsNullOrEmpty(CurrentInputField))
             {
-                LastiesInput = CurrentInputField;
+                LastInput = CurrentInputField;
                 CurrentInputField = "";
                 _currentOperator = operatorSymbol;
             }
@@ -100,9 +95,9 @@ namespace NewNewCalc.ViewModel
 
         private void CalculateResult()
         {
-            if (!string.IsNullOrEmpty(CurrentInputField) && !string.IsNullOrEmpty(LastiesInput) && !string.IsNullOrEmpty(_currentOperator))
+            if (!string.IsNullOrEmpty(CurrentInputField) && !string.IsNullOrEmpty(LastInput) && !string.IsNullOrEmpty(_currentOperator))
             {
-                double num1 = double.Parse(LastiesInput);
+                double num1 = double.Parse(LastInput);
                 double num2 = double.Parse(CurrentInputField);
                 double result = 0;
 
@@ -124,13 +119,13 @@ namespace NewNewCalc.ViewModel
                         }
                         else
                         {
-                            // Handle division by zero if necessary
+                            result = 0;
                         }
                         break;
                 }
 
                 CurrentInputField = result.ToString();
-                LastiesInput = "";
+                LastInput = "";
                 _currentOperator = null;
             }
         }

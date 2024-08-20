@@ -32,7 +32,7 @@
         </Grid.RowDefinitions>
 
         <!-- 위쪽 계산 슬롯 -->
-        <TextBlock Grid.ColumnSpan="4" Grid.Row="0" Height="34" Width="332" TextAlignment="Right" FontSize="20" Text="{Binding LastiesInput}"/>
+        <TextBlock Grid.ColumnSpan="4" Grid.Row="0" Height="34" Width="332" TextAlignment="Right" FontSize="20" Text="{Binding LastInput}"/>
 
         <TextBox Grid.ColumnSpan="4" Grid.Row="1" Height="63" Width="332" TextAlignment="Right" FontSize="36" BorderThickness="0" Text="{Binding CurrentInputField}"/>
 
