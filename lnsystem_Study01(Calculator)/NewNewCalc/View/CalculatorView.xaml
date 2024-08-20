@@ -1,0 +1,80 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NewNewCalc.View"
+             xmlns:ViewModel="clr-namespace:NewNewCalc.View"
+             xmlns:ViewModel1="clr-namespace:NewNewCalc.ViewModel" x:Class="NewNewCalc.View.CalculatorView"
+             mc:Ignorable="d" >
+
+    <UserControl.DataContext>
+        <ViewModel1:VMCalculatorView/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 위쪽 계산 슬롯 -->
+        <TextBlock Grid.ColumnSpan="4" Grid.Row="0" Height="34" Width="332" TextAlignment="Right" FontSize="20" Text="{Binding LastiesInput}"/>
+
+        <TextBox Grid.ColumnSpan="4" Grid.Row="1" Height="63" Width="332" TextAlignment="Right" FontSize="36" BorderThickness="0" Text="{Binding CurrentInputField}"/>
+
+        <!-- 맨 위 그리드 -->
+        <Button Grid.ColumnSpan="3" Grid.Row="2" Height="48" Width="249" Content="C" Command="{Binding InputClear}"/>
+
+        <Button Grid.Column="3" Grid.Row="2" Height="48" Width="83" Content="&lt;-" Command="{Binding InputRemove}"/>
+
+        <!-- 두번째 그리드 -->
+        <Button Grid.Column="0" Grid.Row="3" Height="48" Width="83" Content="7" Command="{Binding Input7}"/>
+
+        <Button Grid.Column="1" Grid.Row="3" Height="48" Width="83" Content="8" Command="{Binding Input8}"/>
+
+        <Button Grid.Column="2" Grid.Row="3" Height="48" Width="83" Content="9" Command="{Binding Input9}"/>
+
+        <Button Grid.Column="3" Grid.Row="3" Height="48" Width="83" Content="x" Command="{Binding InputMultiply}"/>
+
+        <!-- 세번째 그리드 -->
+        <Button Grid.Column="0" Grid.Row="4" Height="48" Width="83" Content="4" Command="{Binding Input4}"/>
+
+        <Button Grid.Column="1" Grid.Row="4" Height="48" Width="83" Content="5" Command="{Binding Input5}"/>
+
+        <Button Grid.Column="2" Grid.Row="4" Height="48" Width="83" Content="6" Command="{Binding Input6}"/>
+
+        <Button Grid.Column="3" Grid.Row="4" Height="48" Width="83" Content="-" Command="{Binding InputSubtract}"/>
+
+        <!-- 네번째 그리드 -->
+        <Button Grid.Column="0" Grid.Row="5" Height="48" Width="83" Content="1" Command="{Binding Input1}"/>
+
+        <Button Grid.Column="1" Grid.Row="5" Height="48" Width="83" Content="2" Command="{Binding Input2}"/>
+
+        <Button Grid.Column="2" Grid.Row="5" Height="48" Width="83" Content="3" Command="{Binding Input3}"/>
+
+        <Button Grid.Column="3" Grid.Row="5" Height="48" Width="83" Content="+" Command="{Binding InputAdd}"/>
+
+        <!-- 다섯번째 그리드 -->
+        <Button Grid.Column="0" Grid.Row="6" Height="48" Width="83"/>
+
+        <Button Grid.Column="1" Grid.Row="6" Height="48" Width="83" Content="0" Command="{Binding Input0}"/>
+
+        <Button Grid.Column="2" Grid.Row="6" Height="48" Width="83" Content="." Command="{Binding InputDecimal}"/>
+
+        <Button Grid.Column="3" Grid.Row="6" Height="48" Width="83" Content="=" Command="{Binding InputResult}"/>
+    </Grid>
+</UserControl>
