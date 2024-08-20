@@ -23,7 +23,6 @@ namespace lnsystem_Study01_Calculator_.View
         public CalculatorView()
         {
             InitializeComponent();
-            DataContext = new VMCalculatorView();
         }
     }
 }

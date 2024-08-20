@@ -21,9 +21,9 @@ namespace lnsystem_Study01_Calculator_.ViewModel
         // 연산자 리스트
         public ObservableCollection<string> Operators { get; }
         // 계산 명령
-        public ICommand CalculateViewCommand { get; }
+        public ICommand CalculateCommand { get; }
         // 종료 명령
-        public ICommand QuitViewCommand { get; }
+        public ICommand QuitCommand { get; }
 
         // 첫 번째 입력 값
         public string FirstInput
@@ -61,8 +61,8 @@ namespace lnsystem_Study01_Calculator_.ViewModel
         // 생성자
         public VMCalculatorView()
         {
-            QuitViewCommand = new RelayCommand(QuitApplication);
-            CalculateViewCommand = new RelayCommand(OnCalculateButtonClick);
+            QuitCommand = new RelayCommand(QuitApplication);
+            CalculateCommand = new RelayCommand(OnCalculateButtonClick);
             CalculateDataList = new ObservableCollection<CalculateData>();
             Operators = new ObservableCollection<string> { "+", "-", "*", "/" };
         }
@@ -73,64 +73,107 @@ namespace lnsystem_Study01_Calculator_.ViewModel
         // 계산 버튼 클릭 시 실행되는 메서드
         private void OnCalculateButtonClick()
         {
-            Debug.WriteLine("Calculate Button Clicked");
-            Debug.WriteLine($"First Input: {FirstInput}");
-            Debug.WriteLine($"Second Input: {SecondInput}");
-            Debug.WriteLine($"Selected Operator: {SelectedOperator}");
-
             // 입력 값 정리
-            string cleanedFirstInput = FirstInput.Trim();
-            string cleanedSecondInput = SecondInput.Trim();
+            string cleanedFirstInput = FirstInput?.Trim();
+            string cleanedSecondInput = SecondInput?.Trim();
 
-            if (double.TryParse(cleanedFirstInput, out double operand1) && double.TryParse(cleanedSecondInput, out double operand2))
+            if (TryParseInputs(cleanedFirstInput, cleanedSecondInput, out double operand1, out double operand2))
             {
-                double result;
-                Operator op;
-
-                switch (SelectedOperator)
+                if (TryCalculateResult(operand1, operand2, out double result, out Operator op))
                 {
-                    case "+":
-                        result = operand1 + operand2;
-                        op = Operator.Plus;
-                        break;
-                    case "-":
-                        result = operand1 - operand2;
-                        op = Operator.Minus;
-                        break;
-                    case "*":
-                        result = operand1 * operand2;
-                        op = Operator.Multiply;
-                        break;
-                    case "/":
-                        if (operand2 != 0)
-                        {
-                            result = operand1 / operand2;
-                            op = Operator.Divide;
-                        }
-                        else
-                        {
-                            MessageBox.Show("0으로 나눌 수 없습니다.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
-                            return;
-                        }
-                        break;
-                    default:
-                        MessageBox.Show("유효하지 않은 연산자입니다.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
+                    AddCalculateData(operand1, operand2, op, result);
                 }
-
-                var calculateData = new CalculateData
-                {
-                    Operand1 = operand1,
-                    Operand2 = operand2,
-                    Operator = op,
-                    Result = result
-                };
-                CalculateDataList.Add(calculateData);
             }
             else
             {
-                MessageBox.Show("유효한 숫자를 입력하세요.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowErrorMessage("유효한 숫자를 입력하세요.");
             }
+        }
+
+        // 입력 값을 double로 변환 시도
+        private bool TryParseInputs(string firstInput, string secondInput, out double operand1, out double operand2)
+        {
+            operand1 = 0;
+            operand2 = 0;
+
+            if (string.IsNullOrWhiteSpace(firstInput) || string.IsNullOrWhiteSpace(secondInput))
+            {
+                ShowErrorMessage("입력 값이 비어 있습니다.");
+                return false;
+            }
+
+            if (!double.TryParse(firstInput, out operand1))
+            {
+                ShowErrorMessage("첫 번째 입력 값이 유효한 숫자가 아닙니다.");
+                return false;
+            }
+
+            if (!double.TryParse(secondInput, out operand2))
+            {
+                ShowErrorMessage("두 번째 입력 값이 유효한 숫자가 아닙니다.");
+                return false;
+            }
+
+            return true;
+        }
+
+        // 계산 결과를 시도
+        private bool TryCalculateResult(double operand1, double operand2, out double result, out Operator op)
+        {
+            result = 0;
+            op = Operator.Plus;
+
+            switch (SelectedOperator)
+            {
+                case "+":
+                    result = operand1 + operand2;
+                    op = Operator.Plus;
+                    break;
+                case "-":
+                    result = operand1 - operand2;
+                    op = Operator.Minus;
+                    break;
+                case "*":
+                    result = operand1 * operand2;
+                    op = Operator.Multiply;
+                    break;
+                case "/":
+                    if (operand2 != 0)
+                    {
+                        result = operand1 / operand2;
+                        op = Operator.Divide;
+                    }
+                    else
+                    {
+                        ShowErrorMessage("0으로 나눌 수 없습니다.");
+                        return false;
+                    }
+                    break;
+                default:
+                    ShowErrorMessage("유효하지 않은 연산자입니다.");
+                    return false;
+            }
+
+            return true;
+        }
+
+        // 계산 데이터를 추가
+        private void AddCalculateData(double operand1, double operand2, Operator op, double result)
+        {
+            var calculateData = new CalculateData
+            {
+                Operand1 = operand1,
+                Operand2 = operand2,
+                Operator = op,
+                Result = result
+            };
+            CalculateDataList.Add(calculateData);
+        }
+
+        // 오류 메시지 표시
+        private void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message, "오류", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         // 속성 변경 알림 이벤트
