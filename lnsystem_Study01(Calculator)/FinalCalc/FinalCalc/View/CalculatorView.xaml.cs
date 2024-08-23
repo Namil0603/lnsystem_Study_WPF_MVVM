@@ -18,7 +18,7 @@ namespace FinalCalc.View
     /// <summary>
     /// CalculatorView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class CalculatorView : UserControl
+    public partial class CalculatorView
     {
         public CalculatorView() => InitializeComponent();
     }

@@ -12,15 +12,31 @@ namespace FinalCalc.Tools
         // 생성자
         public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
-            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            // execute가 null이면 ArgumentNullException을 던집니다.
+            if (execute == null)
+            {
+                throw new ArgumentNullException(nameof(execute));
+            }
+
+            // execute와 canExecute를 초기화합니다.
+            this.execute = execute;
             this.canExecute = canExecute;
         }
 
         // ICommand.CanExecute 구현
         public bool CanExecute(object parameter)
         {
-            return canExecute == null || canExecute();
+            // canExecute가 null이면 true를 반환하고, 그렇지 않으면 canExecute()의 결과를 반환합니다.
+            if (canExecute == null)
+            {
+                return true;
+            }
+            else
+            {
+                return canExecute();
+            }
         }
+
 
         // ICommand.Execute 구현
         public void Execute(object parameter)
