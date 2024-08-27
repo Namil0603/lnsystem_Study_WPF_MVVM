@@ -23,7 +23,6 @@ namespace FinalCalc.ViewModel
                 OnPropertyChanged(); // 속성 변경 알림
             }
         }
-
         public double SecondInput
         {
             get => _calculatorModel.SecondNumber; // 두 번째 입력값 가져오기
@@ -74,7 +73,7 @@ namespace FinalCalc.ViewModel
         private void OnCalculateButtonClick()
         {
             // 계산 버튼 클릭 시 호출되는 메서드
-            CalculationResult = PerformCalculation(_calculatorModel.FirstNumber, _calculatorModel.SecondNumber, SelectedOperator);
+            CalculationResult = PerformCalculation(FirstInput, SecondInput, SelectedOperator);
         }
 
         private double PerformCalculation(double firstNumber, double secondNumber, OperatorType selectedOperator)
