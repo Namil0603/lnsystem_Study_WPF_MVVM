@@ -4,9 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lnsystem_Study02_UDP_Socket_"
+        xmlns:viewModel="clr-namespace:lnsystem_Study02_UDP_Socket_.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding WindowTitle}"
+        Height="450" Width="800">
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
-
+        <ContentControl Content="{Binding CurrentView}"/>
     </Grid>
 </Window>
