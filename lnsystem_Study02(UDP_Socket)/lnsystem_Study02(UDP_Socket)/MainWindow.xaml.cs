@@ -16,9 +16,6 @@ namespace lnsystem_Study02_UDP_Socket_
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
     }
 }

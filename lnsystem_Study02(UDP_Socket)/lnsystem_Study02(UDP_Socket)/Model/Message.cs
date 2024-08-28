@@ -2,9 +2,9 @@
 {
     public class Message
     {
-        public string Sender { get; set; }
-        public string Content { get; set; }
-        public DateTime Timestamp { get; set; }
+        private string Sender { get; }
+        private string Content { get; }
+        private DateTime Timestamp { get; }
 
         public Message(string sender, string content)
         {
@@ -15,7 +15,7 @@
 
         public override string ToString()
         {
-            return $"<{Timestamp:HH:mm:ss}> {Sender}: {Content}";
+            return $"[{Timestamp:HH:mm:ss}] {Sender}: {Content}";
         }
     }
 }

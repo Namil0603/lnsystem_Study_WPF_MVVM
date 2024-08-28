@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -16,7 +11,7 @@ namespace lnsystem_Study02_UDP_Socket_.View
     /// </summary>
     public partial class ChattingView : UserControl
     {
-        #region Constructor
+        #region 생성자
 
         public ChattingView(Status status)
         {
@@ -26,15 +21,16 @@ namespace lnsystem_Study02_UDP_Socket_.View
 
         #endregion
 
-        #region Event Handlers
+        #region 이벤트 핸들러
 
-        // Enter 키를 눌렀을 때 메시지 전송
+        /// <summary>
+        /// Enter 키를 눌렀을 때 메시지 전송
+        /// </summary>
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                var viewModel = DataContext as ChattingViewModel;
-                if (viewModel != null && viewModel.SendMessageCommand.CanExecute(null))
+                if (DataContext is ChattingViewModel viewModel && viewModel.SendMessageCommand.CanExecute(null))
                 {
                     viewModel.SendMessageCommand.Execute(null);
                     ((TextBox)sender).Clear();
@@ -42,7 +38,9 @@ namespace lnsystem_Study02_UDP_Socket_.View
             }
         }
 
-        // ListBox가 로드될 때 스크롤을 끝으로 이동
+        /// <summary>
+        /// ListBox가 로드될 때 스크롤을 끝으로 이동
+        /// </summary>
         private void ListBox_Loaded(object sender, RoutedEventArgs e)
         {
             if (sender is ListBox listBox)
@@ -55,7 +53,9 @@ namespace lnsystem_Study02_UDP_Socket_.View
             }
         }
 
-        // ListBox의 스크롤이 변경될 때 스크롤을 끝으로 이동
+        /// <summary>
+        /// ListBox의 스크롤이 변경될 때 스크롤을 끝으로 이동
+        /// </summary>
         private void ListBox_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (sender is ListBox listBox)
@@ -74,3 +74,4 @@ namespace lnsystem_Study02_UDP_Socket_.View
         #endregion
     }
 }
+

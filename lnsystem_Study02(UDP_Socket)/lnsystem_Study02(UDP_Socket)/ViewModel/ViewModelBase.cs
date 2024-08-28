@@ -17,5 +17,4 @@ namespace lnsystem_Study02_UDP_Socket_.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
 }

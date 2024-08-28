@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace lnsystem_Study02_UDP_Socket_.Tools
+namespace lnsystem_Study02_UDP_Socket_.ViewModel
 {
     public class RelayCommand : ICommand
     {
