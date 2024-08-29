@@ -1,21 +1,25 @@
-﻿namespace lnsystem_Study02_UDP_Socket_.Model
+﻿using Newtonsoft.Json;
+using System;
+
+namespace lnsystem_Study02_UDP_Socket_.Model
 {
     public class Message
     {
-        private string Sender { get; }
-        private string Content { get; }
+        public User Sender { get; }
+        public string Content { get; }
         private DateTime Timestamp { get; }
 
-        public Message(string sender, string content)
+        public Message(User sender, string content)
         {
             Sender = sender;
             Content = content;
             Timestamp = DateTime.Now;
         }
 
-        public override string ToString()
-        {
-            return $"[{Timestamp:HH:mm:ss}] {Sender}: {Content}";
-        }
+        public override string ToString() => $"[{Timestamp:HH: mm: ss}] {Sender.Name} ({Sender.IpAddress}) : {Content}";
+
+        public string ToJson() => JsonConvert.SerializeObject(this);
+
+        public static Message FromJson(string json) => JsonConvert.DeserializeObject<Message>(json);
     }
 }

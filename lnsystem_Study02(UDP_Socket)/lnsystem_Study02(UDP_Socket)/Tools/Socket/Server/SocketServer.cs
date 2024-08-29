@@ -46,10 +46,7 @@ namespace lnsystem_Study02_UDP_Socket_.Tools.Socket.Server
         /// <summary>
         /// 서버를 시작합니다.
         /// </summary>
-        public void StartServer()
-        {
-            Task.Run(() => ReceiveDataAsync(_cancellationTokenSource.Token));
-        }
+        public void StartServer() => Task.Run(() => ReceiveDataAsync(_cancellationTokenSource.Token));
 
         /// <summary>
         /// 서버를 중지합니다.

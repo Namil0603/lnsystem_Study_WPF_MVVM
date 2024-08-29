@@ -9,7 +9,7 @@ namespace lnsystem_Study02_UDP_Socket_.View
     /// <summary>
     /// ChattingView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class ChattingView : UserControl
+    public partial class ChattingView
     {
         #region 생성자
 
@@ -17,6 +17,8 @@ namespace lnsystem_Study02_UDP_Socket_.View
         {
             InitializeComponent();
             DataContext = new ChattingViewModel(status);
+            // 창이 로드된 후 텍스트 입력 상자에 포커스를 설정합니다.
+            Loaded += (_, _) => InputTextBox.Focus();
         }
 
         #endregion

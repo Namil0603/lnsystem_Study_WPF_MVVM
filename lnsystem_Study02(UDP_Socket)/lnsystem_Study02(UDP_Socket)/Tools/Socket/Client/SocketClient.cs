@@ -18,7 +18,7 @@ namespace lnsystem_Study02_UDP_Socket_.Tools.Socket.Client
 
         #region 이벤트
 
-        public event Action<string> MessageReceived;
+        public event Action<string>? MessageReceived;
 
         #endregion
 

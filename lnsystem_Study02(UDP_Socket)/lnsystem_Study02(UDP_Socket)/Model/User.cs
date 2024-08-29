@@ -1,4 +1,6 @@
-﻿namespace lnsystem_Study02_UDP_Socket_.Model
+﻿using Newtonsoft.Json;
+
+namespace lnsystem_Study02_UDP_Socket_.Model
 {
     public class User
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Net;
+using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 using lnsystem_Study02_UDP_Socket_.Model;
-using lnsystem_Study02_UDP_Socket_.Tools;
 
 namespace lnsystem_Study02_UDP_Socket_.ViewModel
 {
@@ -23,6 +23,7 @@ namespace lnsystem_Study02_UDP_Socket_.ViewModel
         #region 멤버 변수
 
         private readonly ChatManager _chatManager;
+        private readonly MessageModel _messageModel;
 
         #endregion
 
@@ -34,10 +35,10 @@ namespace lnsystem_Study02_UDP_Socket_.ViewModel
 
         public string NewMessage
         {
-            get => _chatManager.NewMessage;
+            get => _messageModel.InputTextBox;
             set
             {
-                _chatManager.NewMessage = value;
+                _messageModel.InputTextBox = value;
                 OnPropertyChanged();
             }
         }
@@ -49,10 +50,10 @@ namespace lnsystem_Study02_UDP_Socket_.ViewModel
         public ChattingViewModel(Status status)
         {
             CurrentStatus = status;
-            _chatManager = new ChatManager(status);
+            _messageModel = new MessageModel();
+            _chatManager = new ChatManager(CurrentStatus);
             Messages = new ObservableCollection<string>();
             SendMessageCommand = new RelayCommand(SendMessage);
-
             _chatManager.MessageReceived += OnMessageReceived;
         }
 
@@ -67,8 +68,11 @@ namespace lnsystem_Study02_UDP_Socket_.ViewModel
         {
             if (string.IsNullOrWhiteSpace(NewMessage)) return;
 
-            string message = NewMessage;
-            Messages.Add(new Message("Me", message).ToString());
+            var user = new User(GetLocalIPAddress(), CurrentStatus.ToString());
+            var message = new Message(user, NewMessage);
+            Messages.Add(message.ToString());
+
+            _messageModel.ChattingList.Add(message); // 캐싱
 
             await _chatManager.SendMessageAsync(message, CurrentStatus);
 
@@ -88,11 +92,28 @@ namespace lnsystem_Study02_UDP_Socket_.ViewModel
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
+                _messageModel.ChattingList.Add(message); // 캐싱
                 Messages.Add(message.ToString());
             });
+        }
+
+        /// <summary>
+        /// 로컬 IP 주소를 가져옵니다.
+        /// </summary>
+        /// <returns>로컬 IP 주소</returns>
+        private string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
 
         #endregion
     }
 }
-

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Windows.Threading;
+﻿using System.Collections.ObjectModel;
 using lnsystem_Study02_UDP_Socket_.Tools.Socket.Client;
 using lnsystem_Study02_UDP_Socket_.Tools.Socket.Server;
 using lnsystem_Study02_UDP_Socket_.ViewModel;
+using Newtonsoft.Json;
 
 namespace lnsystem_Study02_UDP_Socket_.Model
 {
@@ -28,7 +26,6 @@ namespace lnsystem_Study02_UDP_Socket_.Model
 
         public ObservableCollection<Message> Messages { get; }
         public ObservableCollection<User> Users { get; }
-        public string NewMessage { get; set; }
 
         #endregion
 
@@ -44,7 +41,6 @@ namespace lnsystem_Study02_UDP_Socket_.Model
         {
             Messages = new ObservableCollection<Message>();
             Users = new ObservableCollection<User>();
-            NewMessage = string.Empty; // NewMessage 초기화
 
             InitializeSocket(status);
         }
@@ -75,10 +71,10 @@ namespace lnsystem_Study02_UDP_Socket_.Model
         /// <summary>
         /// 메시지 수신 시 호출됩니다.
         /// </summary>
-        /// <param name="message">수신된 메시지</param>
-        private void OnMessageReceived(string message)
+        /// <param name="messageJson">수신된 메시지</param>
+        private void OnMessageReceived(string messageJson)
         {
-            var receivedMessage = new Message("Server", message);
+            var receivedMessage = Message.FromJson(messageJson);
             App.Current.Dispatcher.Invoke(() =>
             {
                 Messages.Add(receivedMessage);
@@ -95,21 +91,22 @@ namespace lnsystem_Study02_UDP_Socket_.Model
         /// </summary>
         /// <param name="message">전송할 메시지</param>
         /// <param name="status">현재 상태 (서버 또는 클라이언트)</param>
-        public async Task SendMessageAsync(string message, Status status)
+        public async Task SendMessageAsync(Message message, Status status)
         {
-            if (string.IsNullOrWhiteSpace(message)) return;
+            if (string.IsNullOrWhiteSpace(message.Content)) return;
+
+            string messageJson = message.ToJson();
 
             if (status == Status.Server && _socketServer != null)
             {
-                await _socketServer.SendMessageToClientsAsync(message);
+                await _socketServer.SendMessageToClientsAsync(messageJson);
             }
             else if (status == Status.Client && _socketClient != null)
             {
-                await _socketClient.SendMessageAsync(message);
+                await _socketClient.SendMessageAsync(messageJson);
             }
         }
 
         #endregion
     }
 }
-

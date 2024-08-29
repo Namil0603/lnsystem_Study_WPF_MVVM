@@ -15,30 +15,27 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- 채팅 메시지를 표시할 리스트 -->
         <ListBox
-            x:Name="MessagesListBox"
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"
             ItemsSource="{Binding Messages}"
             Loaded="ListBox_Loaded"
             ScrollViewer.ScrollChanged="ListBox_ScrollChanged" />
 
-
-
         <!-- 텍스트 입력 상자 -->
         <TextBox
-            Grid.Row="2"
+            x:Name="InputTextBox"
+            Grid.Row="1" Grid.Column="0"
             Text="{Binding NewMessage, UpdateSourceTrigger=PropertyChanged}"
             HorizontalContentAlignment="Stretch"
             KeyDown="TextBox_KeyDown" />
 
         <!-- 전송 버튼 -->
-        <Button Grid.Row="2" Grid.Column="1" Content="전송" Command="{Binding SendMessageCommand}" />
+        <Button Grid.Row="1" Grid.Column="1" Content="전송" Command="{Binding SendMessageCommand}" />
     </Grid>
 </UserControl>
