@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace lnsystem_Study02_UDP_Socket_.Model
+﻿namespace lnsystem_Study02_UDP_Socket_.Data
 {
     public class User
     {

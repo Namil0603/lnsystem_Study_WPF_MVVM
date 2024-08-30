@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Input;
+using lnsystem_Study02_UDP_Socket_.Data;
+using lnsystem_Study02_UDP_Socket_.Manager;
 using lnsystem_Study02_UDP_Socket_.Model;
 
 namespace lnsystem_Study02_UDP_Socket_.ViewModel

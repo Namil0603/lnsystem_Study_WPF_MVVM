@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using lnsystem_Study02_UDP_Socket_.Data;
 using lnsystem_Study02_UDP_Socket_.Tools.Socket.Client;
 using lnsystem_Study02_UDP_Socket_.Tools.Socket.Server;
 using lnsystem_Study02_UDP_Socket_.ViewModel;
-using Newtonsoft.Json;
 
-namespace lnsystem_Study02_UDP_Socket_.Model
+namespace lnsystem_Study02_UDP_Socket_.Manager
 {
     public class ChatManager
     {
@@ -25,7 +25,6 @@ namespace lnsystem_Study02_UDP_Socket_.Model
         #region 속성
 
         public ObservableCollection<Message> Messages { get; }
-        public ObservableCollection<User> Users { get; }
 
         #endregion
 
@@ -40,7 +39,6 @@ namespace lnsystem_Study02_UDP_Socket_.Model
         public ChatManager(Status status)
         {
             Messages = new ObservableCollection<Message>();
-            Users = new ObservableCollection<User>();
 
             InitializeSocket(status);
         }

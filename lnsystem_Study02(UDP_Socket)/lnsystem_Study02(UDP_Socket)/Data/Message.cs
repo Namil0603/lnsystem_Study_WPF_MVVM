@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-
-namespace lnsystem_Study02_UDP_Socket_.Model
+namespace lnsystem_Study02_UDP_Socket_.Data
 {
     public class Message
     {

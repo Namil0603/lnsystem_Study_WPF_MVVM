@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using lnsystem_Study02_UDP_Socket_.Data;
 
 namespace lnsystem_Study02_UDP_Socket_.Model
 {
