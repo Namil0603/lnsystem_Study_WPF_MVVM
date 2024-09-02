@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using lnsystem_Study02_UDP_Socket_.Data;
 using lnsystem_Study02_UDP_Socket_.Tools.Socket.Client;
 using lnsystem_Study02_UDP_Socket_.Tools.Socket.Server;
@@ -22,12 +23,6 @@ namespace lnsystem_Study02_UDP_Socket_.Manager
 
         #endregion
 
-        #region 속성
-
-        public ObservableCollection<Message> Messages { get; }
-
-        #endregion
-
         #region 이벤트
 
         public event Action<Message>? MessageReceived;
@@ -38,8 +33,6 @@ namespace lnsystem_Study02_UDP_Socket_.Manager
 
         public ChatManager(Status status)
         {
-            Messages = new ObservableCollection<Message>();
-
             InitializeSocket(status);
         }
 
@@ -73,9 +66,8 @@ namespace lnsystem_Study02_UDP_Socket_.Manager
         private void OnMessageReceived(string messageJson)
         {
             var receivedMessage = Message.FromJson(messageJson);
-            App.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                Messages.Add(receivedMessage);
                 MessageReceived?.Invoke(receivedMessage);
             });
         }

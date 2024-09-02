@@ -7,8 +7,8 @@ namespace lnsystem_Study02_UDP_Socket_.ViewModel
         #region 멤버 변수
 
         public static MainWindowViewModel? Instance;
-        private object _currentView;
-        private string _windowTitle;
+        private object _currentView = null!;
+        private string _windowTitle = null!;
 
         #endregion
 

@@ -1,12 +1,11 @@
 ﻿<UserControl
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:lnsystem_Study02_UDP_Socket_.View"
-             xmlns:ViewModel="clr-namespace:lnsystem_Study02_UDP_Socket_.ViewModel" x:Class="lnsystem_Study02_UDP_Socket_.View.ViewSelectView"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:ViewModel="clr-namespace:lnsystem_Study02_UDP_Socket_.ViewModel" x:Class="lnsystem_Study02_UDP_Socket_.View.ViewSelectView"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.DataContext>
         <ViewModel:ViewSelectViewModel/>
@@ -26,21 +25,21 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button
-            Content="Socket / Client"
-            Grid.Column="1"
-            Grid.Row="1"
-            Width="240"
-            Height="80"
-            Command="{Binding SocketClientClickCommand}"/>
+        <Button Grid.Column="1" Grid.Row="1" Width="240" Height="80" Command="{Binding SocketClientClickCommand}">
+            <Button.Content>
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                    (UDP Socket)<LineBreak/>Client
+                </TextBlock>
+            </Button.Content>
+        </Button>
 
-        <Button
-            Content="Socket / Server"
-            Grid.Column="3"
-            Grid.Row="1"
-            Width="240"
-            Height="80"
-            Command="{Binding SocketServerClickCommand}"/>
+        <Button Grid.Column="3" Grid.Row="1" Width="240" Height="80" Command="{Binding SocketServerClickCommand}">
+            <Button.Content>
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                    (UDP Socket)<LineBreak/>Server
+                </TextBlock>
+            </Button.Content>
+        </Button>
 
     </Grid>
 </UserControl>

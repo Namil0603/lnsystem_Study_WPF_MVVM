@@ -69,7 +69,7 @@ namespace lnsystem_Study02_UDP_Socket_.ViewModel
         {
             if (string.IsNullOrWhiteSpace(NewMessage)) return;
 
-            var user = new User(GetLocalIPAddress(), CurrentStatus.ToString());
+            var user = new User(GetLocalIpAddress(), CurrentStatus.ToString());
             var message = new Message(user, NewMessage);
             Messages.Add(message.ToString());
 
@@ -102,17 +102,21 @@ namespace lnsystem_Study02_UDP_Socket_.ViewModel
         /// 로컬 IP 주소를 가져옵니다.
         /// </summary>
         /// <returns>로컬 IP 주소</returns>
-        private string GetLocalIPAddress()
+        private string GetLocalIpAddress()
         {
+            // 현재 호스트(컴퓨터)의 DNS 정보를 가져옵니다.
+            // Dns.GetHostName() 메서드는 현재 컴퓨터의 호스트 이름을 반환합니다.
+            // Dns.GetHostEntry() 메서드는 해당 호스트 이름에 대한 IP 주소 정보를 포함하는 IPHostEntry 객체를 반환합니다.
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
+                // IPv4 주소인지 확인합니다.
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
                     return ip.ToString();
                 }
             }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
+            throw new Exception("시스템에 IPv4 주소를 가진 네트워크 어댑터가 없습니다!");
         }
 
         #endregion
