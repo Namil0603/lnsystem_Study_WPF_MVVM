@@ -17,7 +17,7 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Data
         /// <returns>생성된 데이터 패킷</returns>
         public static byte[] CreateDataPacket(string ID, string chatting)
         {
-            // ID가 null이거나 길이가 10을 초과하는지 확인
+            // ID가 null이거나 비어 있는지 확인
             if (string.IsNullOrEmpty(ID))
             {
                 throw new ArgumentException("ID는 null이거나 비어 있을 수 없습니다.");
@@ -31,6 +31,7 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Data
 
             // ID를 UTF-8 인코딩으로 변환
             byte[] idBytes = Encoding.UTF8.GetBytes(ID);
+            // ID의 바이트 길이가 10을 초과하는지 확인
             if (idBytes.Length > 10)
             {
                 throw new ArgumentException("ID는 10바이트를 초과할 수 없습니다.");
@@ -38,24 +39,29 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Data
 
             // ID를 10바이트로 고정 (부족한 부분은 '\0'으로 채움)
             byte[] paddedIdBytes = new byte[10];
+            // idBytes의 내용을 paddedIdBytes에 복사
             Buffer.BlockCopy(idBytes, 0, paddedIdBytes, 0, idBytes.Length);
 
-            // 채팅 메시지를 바이트 배열로 변환
+            // 채팅 메시지를 UTF-8 인코딩으로 바이트 배열로 변환
             byte[] chatBytes = Encoding.UTF8.GetBytes(chatting);
 
             // 채팅 메시지 길이를 4바이트 정수로 변환
             int chatLength = chatBytes.Length;
+            // chatLength를 바이트 배열로 변환
             byte[] chatLengthBytes = BitConverter.GetBytes(chatLength);
 
-            // 최종 바이트 배열 생성
+            // 최종 바이트 배열 생성 (ID + 채팅 메시지 길이 + 채팅 메시지)
             byte[] finalBytes = new byte[paddedIdBytes.Length + chatLengthBytes.Length + chatBytes.Length];
+            // paddedIdBytes를 finalBytes에 복사
             Buffer.BlockCopy(paddedIdBytes, 0, finalBytes, 0, paddedIdBytes.Length);
+            // chatLengthBytes를 finalBytes에 복사
             Buffer.BlockCopy(chatLengthBytes, 0, finalBytes, paddedIdBytes.Length, chatLengthBytes.Length);
+            // chatBytes를 finalBytes에 복사
             Buffer.BlockCopy(chatBytes, 0, finalBytes, paddedIdBytes.Length + chatLengthBytes.Length, chatBytes.Length);
 
+            // 최종 데이터 패킷 반환
             return finalBytes;
         }
-
 
         /// <summary>
         /// 주어진 데이터 패킷을 파싱하여 ID와 채팅 메시지를 추출합니다.
@@ -72,12 +78,16 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Data
 
             // ID 추출 (UTF-8 인코딩 사용)
             byte[] idBytes = new byte[10];
+            // receivedBytes에서 ID 부분을 idBytes에 복사
             Buffer.BlockCopy(receivedBytes, 0, idBytes, 0, 10);
+            // idBytes를 문자열로 변환하고, '\0'을 제거
             string ID = Encoding.UTF8.GetString(idBytes).TrimEnd('\0');
 
             // 채팅 메시지 길이 추출
             byte[] chatLengthBytes = new byte[4];
+            // receivedBytes에서 채팅 메시지 길이 부분을 chatLengthBytes에 복사
             Buffer.BlockCopy(receivedBytes, 10, chatLengthBytes, 0, 4);
+            // chatLengthBytes를 정수로 변환
             int chatLength = BitConverter.ToInt32(chatLengthBytes, 0);
 
             // 채팅 메시지 길이가 유효한지 확인
@@ -88,9 +98,12 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Data
 
             // 채팅 메시지 추출
             byte[] chatBytes = new byte[chatLength];
+            // receivedBytes에서 채팅 메시지 부분을 chatBytes에 복사
             Buffer.BlockCopy(receivedBytes, 14, chatBytes, 0, chatLength);
+            // chatBytes를 문자열로 변환
             string chatting = Encoding.UTF8.GetString(chatBytes);
 
+            // 추출된 ID와 채팅 메시지 반환
             return (ID, chatting);
         }
     }
