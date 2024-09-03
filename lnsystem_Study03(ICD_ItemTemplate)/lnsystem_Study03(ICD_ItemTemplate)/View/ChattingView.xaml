@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="lnsystem_Study03_ICD_ItemTemplate_.View.ChattingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <!-- 450 800 창 기준임-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 채팅 메시지를 표시할 리스트 -->
+        <ListBox
+            Grid.Column="0" Grid.Row="0"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding MessagesModel}"
+            Loaded="ListBox_Loaded"
+            ScrollViewer.ScrollChanged="ListBox_ScrollChanged" />
+
+        <!-- 텍스트 입력 상자 -->
+        <TextBox
+            x:Name="InputTextBox"
+            Grid.Row="1" Grid.Column="0"
+            Text="{Binding NewMessage, UpdateSourceTrigger=PropertyChanged}"
+            HorizontalContentAlignment="Stretch"
+            KeyDown="TextBox_KeyDown" />
+
+        <!-- 전송 버튼 -->
+        <Button Grid.Row="1" Grid.Column="1" Content="전송" Command="{Binding SendMessageCommand}" />
+    </Grid>
+</UserControl>
