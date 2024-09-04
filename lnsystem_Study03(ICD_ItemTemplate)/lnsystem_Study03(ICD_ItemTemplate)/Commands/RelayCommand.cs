@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace lnsystem_Study03_ICD_ItemTemplate_.ViewModel
+namespace lnsystem_Study03_ICD_ItemTemplate_.Commands
 {
     public class RelayCommand : ICommand
     {

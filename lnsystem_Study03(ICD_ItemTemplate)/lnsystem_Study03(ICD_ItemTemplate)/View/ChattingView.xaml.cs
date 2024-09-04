@@ -14,6 +14,10 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.View
     {
         #region 생성자
 
+        /// <summary>
+        /// ChattingView의 생성자입니다.
+        /// </summary>
+        /// <param name="status">현재 상태 (서버 또는 클라이언트)</param>
         public ChattingView(Status status)
         {
             InitializeComponent();
@@ -79,4 +83,3 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.View
         #endregion
     }
 }
-

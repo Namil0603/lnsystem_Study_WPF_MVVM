@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using lnsystem_Study03_ICD_ItemTemplate_.Converters;
 using lnsystem_Study03_ICD_ItemTemplate_.Data;
 using lnsystem_Study03_ICD_ItemTemplate_.Tools.Socket.Client;
 using lnsystem_Study03_ICD_ItemTemplate_.Tools.Socket.Server;
@@ -6,6 +7,9 @@ using lnsystem_Study03_ICD_ItemTemplate_.ViewModel;
 
 namespace lnsystem_Study03_ICD_ItemTemplate_.Manager
 {
+    /// <summary>
+    /// 채팅 관리를 담당하는 클래스입니다.
+    /// </summary>
     public class ChatManager
     {
         #region 상수
@@ -24,6 +28,9 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Manager
 
         #region 이벤트
 
+        /// <summary>
+        /// 메시지가 수신되었을 때 발생하는 이벤트입니다.
+        /// </summary>
         public event Action<Message>? MessageReceived;
 
         #endregion
@@ -104,3 +111,4 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Manager
         #endregion
     }
 }
+

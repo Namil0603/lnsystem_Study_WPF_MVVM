@@ -3,11 +3,8 @@
     public class UserDataModel
     {
         public static UserDataModel Instance;
+        public UserDataModel() => Instance = this;
+        
         public string LocalID;
-
-        public UserDataModel()
-        {
-            Instance = this;
-        }
     }
 }

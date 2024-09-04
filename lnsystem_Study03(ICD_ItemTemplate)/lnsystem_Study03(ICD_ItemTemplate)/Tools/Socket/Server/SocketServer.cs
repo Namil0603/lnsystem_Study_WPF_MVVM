@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
-using lnsystem_Study03_ICD_ItemTemplate_.Data;
+using lnsystem_Study03_ICD_ItemTemplate_.Converters;
 
 namespace lnsystem_Study03_ICD_ItemTemplate_.Tools.Socket.Server
 {

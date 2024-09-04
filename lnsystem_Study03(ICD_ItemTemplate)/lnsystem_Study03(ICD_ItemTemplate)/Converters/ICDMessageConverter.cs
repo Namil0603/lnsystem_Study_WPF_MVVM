@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace lnsystem_Study03_ICD_ItemTemplate_.Data
+namespace lnsystem_Study03_ICD_ItemTemplate_.Converters
 {
     /// <summary>
     /// 아래 메서드들은 ICD 프로토콜에 따라 데이터 패킷을 생성하고 파싱합니다.

@@ -1,4 +1,6 @@
 ﻿using System.Windows.Input;
+using lnsystem_Study03_ICD_ItemTemplate_.Commands;
+using lnsystem_Study03_ICD_ItemTemplate_.Dialog;
 using lnsystem_Study03_ICD_ItemTemplate_.Model;
 using lnsystem_Study03_ICD_ItemTemplate_.View;
 
