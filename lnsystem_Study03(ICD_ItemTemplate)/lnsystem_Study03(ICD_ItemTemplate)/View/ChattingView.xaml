@@ -6,7 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <!-- 450 800 창 기준임-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -24,7 +23,15 @@
             Grid.ColumnSpan="2"
             ItemsSource="{Binding MessagesModel}"
             Loaded="ListBox_Loaded"
-            ScrollViewer.ScrollChanged="ListBox_ScrollChanged" />
+            ScrollViewer.ScrollChanged="ListBox_ScrollChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="LightGray" CornerRadius="10" Padding="10" Margin="5">
+                        <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <!-- 텍스트 입력 상자 -->
         <TextBox
