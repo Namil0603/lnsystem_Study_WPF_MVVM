@@ -3,8 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:lnsystem_Study03_ICD_ItemTemplate_.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <local:BooleanToColorConverter x:Key="BooleanToColorConverter" />
+    </UserControl.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -32,8 +37,9 @@
                             <ColumnDefinition Width="450" />
                             <ColumnDefinition Width="150" />
                         </Grid.ColumnDefinitions>
-                        <Border Background="LightGray" CornerRadius="10" Padding="10" Margin="5" 
-                                Grid.Column="{Binding IsSentByMe, Converter={StaticResource BooleanToGridColumnConverter}}">
+                        <Border CornerRadius="10" Padding="10" Margin="5" 
+                                Grid.Column="{Binding IsLocal, Converter={StaticResource BooleanToGridColumnConverter}}"
+                                Background="{Binding IsLocal, Converter={StaticResource BooleanToColorConverter}}">
                             <StackPanel>
                                 <TextBlock Text="{Binding ID}" FontWeight="Bold" />
                                 <TextBlock Text="{Binding Chat}" TextWrapping="Wrap" />

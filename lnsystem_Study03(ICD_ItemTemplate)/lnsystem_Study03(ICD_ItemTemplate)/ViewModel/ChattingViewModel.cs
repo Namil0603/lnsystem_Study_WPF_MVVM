@@ -87,7 +87,7 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.ViewModel
         /// <param name="message">수신된 메시지</param>
         private void OnMessageReceived(Message message)
         {
-            message.IsSentByMe = false;
+            message.IsLocal = false;
             Application.Current.Dispatcher.BeginInvoke(() => MessageModel.Instance.MessagesModel.Add(message));
         }
 

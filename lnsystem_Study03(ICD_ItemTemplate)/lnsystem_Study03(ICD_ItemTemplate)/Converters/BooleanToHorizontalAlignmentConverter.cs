@@ -9,9 +9,9 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool isSentByMe)
+            if (value is bool isLocal)
             {
-                return isSentByMe ? HorizontalAlignment.Right : HorizontalAlignment.Left;
+                return isLocal ? HorizontalAlignment.Right : HorizontalAlignment.Left;
             }
             return HorizontalAlignment.Right;
         }
