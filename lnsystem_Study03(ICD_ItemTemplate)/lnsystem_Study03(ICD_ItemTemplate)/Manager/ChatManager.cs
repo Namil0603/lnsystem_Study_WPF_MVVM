@@ -30,6 +30,10 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Manager
 
         #region 생성자
 
+        /// <summary>
+        /// ChatManager의 생성자입니다.
+        /// </summary>
+        /// <param name="status">현재 상태 (서버 또는 클라이언트)</param>
         public ChatManager(Status status)
         {
             InitializeSocket(status);
@@ -61,7 +65,8 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Manager
         /// <summary>
         /// 메시지 수신 시 호출됩니다.
         /// </summary>
-        /// <param name="messageJson">수신된 메시지</param>
+        /// <param name="id">보낸 사람의 ID</param>
+        /// <param name="chat">수신된 채팅 메시지</param>
         private void OnMessageReceived(string id, string chat)
         {
             var message = new Message(id, chat);
@@ -84,10 +89,7 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Manager
         {
             if (string.IsNullOrWhiteSpace(message.Chat)) return;
 
-
-
             var icd = ICDMessageConverter.CreateDataPacket(message.ID, message.Chat);
-
 
             if (status == Status.Server && _socketServer != null)
             {

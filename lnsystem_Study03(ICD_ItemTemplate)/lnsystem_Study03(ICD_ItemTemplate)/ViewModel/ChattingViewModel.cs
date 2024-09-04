@@ -25,11 +25,16 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.ViewModel
 
         #endregion
 
-        #region 속성
+        #region 명령
 
         public ICommand SendMessageCommand { get; }
+
+        #endregion
+
+        #region 속성
+
         public Status CurrentStatus { get; }
-        public ObservableCollection<string> MessagesModel => MessageModel.Instance.MessagesModel;
+        public ObservableCollection<Message> MessagesModel => MessageModel.Instance.MessagesModel;
 
         public string NewMessage
         {
@@ -45,6 +50,10 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.ViewModel
 
         #region 생성자
 
+        /// <summary>
+        /// ChattingViewModel의 생성자입니다.
+        /// </summary>
+        /// <param name="status">현재 상태 (서버 또는 클라이언트)</param>
         public ChattingViewModel(Status status)
         {
             CurrentStatus = status;
@@ -55,7 +64,7 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.ViewModel
 
         #endregion
 
-        #region 공개 메서드
+        #region 비공개 메서드
 
         /// <summary>
         /// 메시지를 전송합니다.
@@ -65,23 +74,20 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.ViewModel
             if (string.IsNullOrWhiteSpace(NewMessage)) return;
 
             var message = new Message(UserDataModel.Instance.LocalID, NewMessage);
-            MessageModel.Instance.MessagesModel.Add(message.ToString());
+            MessageModel.Instance.MessagesModel.Add(message);
             await _chatManager.SendMessageAsync(message, CurrentStatus);
 
             NewMessage = string.Empty;
             OnPropertyChanged(nameof(NewMessage));
         }
 
-        #endregion
-
-        #region 비공개 메서드
-
         /// <summary>
         /// 메시지 수신 시 호출됩니다.
         /// </summary>
         /// <param name="message">수신된 메시지</param>
-        private void OnMessageReceived(Message message) => Application.Current.Dispatcher.BeginInvoke(() => MessageModel.Instance.MessagesModel.Add(message.ToString()));
+        private void OnMessageReceived(Message message) => Application.Current.Dispatcher.BeginInvoke(() => MessageModel.Instance.MessagesModel.Add(message));
 
         #endregion
     }
 }
+
