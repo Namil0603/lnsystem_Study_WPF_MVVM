@@ -69,7 +69,7 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Manager
         /// <param name="chat">수신된 채팅 메시지</param>
         private void OnMessageReceived(string id, string chat)
         {
-            var message = new Message(id, chat);
+            var message = new Message(id, chat, false);
             Application.Current.Dispatcher.Invoke(() =>
             {
                 MessageReceived?.Invoke(message);

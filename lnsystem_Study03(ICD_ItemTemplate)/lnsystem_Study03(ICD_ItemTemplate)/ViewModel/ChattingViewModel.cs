@@ -73,7 +73,7 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.ViewModel
         {
             if (string.IsNullOrWhiteSpace(NewMessage)) return;
 
-            var message = new Message(UserDataModel.Instance.LocalID, NewMessage);
+            var message = new Message(UserDataModel.Instance.LocalID, NewMessage, true);
             MessageModel.Instance.MessagesModel.Add(message);
             await _chatManager.SendMessageAsync(message, CurrentStatus);
 
@@ -85,9 +85,12 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.ViewModel
         /// 메시지 수신 시 호출됩니다.
         /// </summary>
         /// <param name="message">수신된 메시지</param>
-        private void OnMessageReceived(Message message) => Application.Current.Dispatcher.BeginInvoke(() => MessageModel.Instance.MessagesModel.Add(message));
+        private void OnMessageReceived(Message message)
+        {
+            message.IsSentByMe = false;
+            Application.Current.Dispatcher.BeginInvoke(() => MessageModel.Instance.MessagesModel.Add(message));
+        }
 
         #endregion
     }
 }
-
