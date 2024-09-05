@@ -57,9 +57,10 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Tools.Socket.Server
         /// 클라이언트들에게 메시지를 전송합니다.
         /// </summary>
         /// <param name="message">전송할 메시지</param>
-        public async Task SendMessageToClientsAsync(byte[] message)
+        /// <param name="excludeEndPoint">제외할 클라이언트의 EndPoint</param>
+        public async Task SendMessageToClientsAsync(byte[] message, IPEndPoint? excludeEndPoint = null)
         {
-            foreach (var clientEndPoint in _clientEndPoints)
+            foreach (var clientEndPoint in _clientEndPoints.Where(clientEndPoint => !Equals(clientEndPoint, excludeEndPoint)))
             {
                 await _udpClient.SendAsync(message, message.Length, clientEndPoint);
             }
@@ -89,6 +90,9 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Tools.Socket.Server
                     {
                         _clientEndPoints.Add(result.RemoteEndPoint);
                     }
+
+                    // 메시지를 보낸 클라이언트를 제외하고 다른 클라이언트들에게 메시지를 전송
+                    await SendMessageToClientsAsync(result.Buffer, result.RemoteEndPoint);
                 }
             }
             catch (ObjectDisposedException)
@@ -105,4 +109,3 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.Tools.Socket.Server
         #endregion
     }
 }
-
