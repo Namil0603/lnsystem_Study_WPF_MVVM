@@ -6,6 +6,7 @@
         xmlns:viewModel="clr-namespace:lnsystem_Study03_ICD_ItemTemplate_.ViewModel"
         mc:Ignorable="d"
         Title="{Binding WindowTitle}"
+        ResizeMode="NoResize"
         Height="450" Width="800">
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
