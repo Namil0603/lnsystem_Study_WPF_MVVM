@@ -4,9 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lnsystem_Study04_Style_"
+        xmlns:viewModel="clr-namespace:lnsystem_Study04_Style_.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding WindowTitle}"
+        ResizeMode="NoResize"
+        Height="450" Width="800">
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
-
+        <ContentControl Content="{Binding CurrentView}"/>
     </Grid>
 </Window>
