@@ -46,6 +46,7 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.ViewModel
         /// </summary>
         private void SocketServerClick()
         {
+            UserDataModel.Instance.LocalID = "Server"; // 서버는 강제로 ID를 서버로 할당
             MainWindowViewModel.Instance?.ChangeTitle("Socket UDP Server");
             MainWindowViewModel.Instance?.ChangeView(new ChattingView(Status.Server));
         }

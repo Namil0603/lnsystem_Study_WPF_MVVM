@@ -22,7 +22,6 @@ namespace lnsystem_Study03_ICD_ItemTemplate_.View
         {
             InitializeComponent();
             DataContext = new ChattingViewModel(status);
-            if (status == Status.Server) UserDataModel.Instance.LocalID = "Server"; // 서버는 강제로 ID를 서버로 할당
 
             // 창이 로드된 후 텍스트 입력 상자에 포커스를 설정합니다.
             Loaded += (_, _) => InputTextBox.Focus();
