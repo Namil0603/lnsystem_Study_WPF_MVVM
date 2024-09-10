@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using lnsystem_Study04_Style_.Converters;
 
 namespace lnsystem_Study04_Style_.Tools.Socket.Client
@@ -28,6 +29,11 @@ namespace lnsystem_Study04_Style_.Tools.Socket.Client
             _localEndPoint = new IPEndPoint(IPAddress.Any, 0); // 로컬 포트에 바인딩
             _udpClient = new UdpClient(_localEndPoint);
             Task.Run(ReceiveMessagesAsync);
+
+            // 클라이언트가 처음 시작할 때 서버로 특정 메시지를 보냄
+            // INITIAL_MESSAGE 라는 메시지를 보내면 서버에서 클라이언트의 ID를 설정함
+            var initialMessage = "INITIAL_MESSAGE"u8.ToArray();
+            SendMessageAsync(initialMessage).Wait();
         }
 
         #endregion
@@ -55,8 +61,8 @@ namespace lnsystem_Study04_Style_.Tools.Socket.Client
             while (true)
             {
                 var result = await _udpClient.ReceiveAsync();
-                var (id,chat) = ICDMessageConverter.ParseDataPacket(result.Buffer);
-                MessageReceived?.Invoke(id,chat);
+                var (id, chat) = ICDMessageConverter.ParseDataPacket(result.Buffer);
+                MessageReceived?.Invoke(id, chat);
             }
         }
 

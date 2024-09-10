@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using lnsystem_Study04_Style_.Converters;
 
 namespace lnsystem_Study04_Style_.Tools.Socket.Server
@@ -74,6 +75,7 @@ namespace lnsystem_Study04_Style_.Tools.Socket.Server
         /// 데이터를 비동기적으로 수신합니다.
         /// </summary>
         /// <param name="cancellationToken">취소 토큰</param>
+        // SocketServer.cs
         private async Task ReceiveDataAsync(CancellationToken cancellationToken)
         {
             try
@@ -81,6 +83,16 @@ namespace lnsystem_Study04_Style_.Tools.Socket.Server
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     var result = await _udpClient.ReceiveAsync(cancellationToken);
+                    // 특정 메시지를 수신하면 클라이언트의 엔드포인트를 저장
+                    if (Encoding.UTF8.GetString(result.Buffer) == "INITIAL_MESSAGE")
+                    {
+                        if (!_clientEndPoints.Contains(result.RemoteEndPoint))
+                        {
+                            _clientEndPoints.Add(result.RemoteEndPoint);
+                        }
+                        continue;
+                    }
+
                     var (id, chat) = ICDMessageConverter.ParseDataPacket(result.Buffer);
 
                     MessageReceived?.Invoke(id, chat);
@@ -105,6 +117,7 @@ namespace lnsystem_Study04_Style_.Tools.Socket.Server
                 Debug.WriteLine($"오류 발생: {ex.Message}");
             }
         }
+
 
         #endregion
     }
