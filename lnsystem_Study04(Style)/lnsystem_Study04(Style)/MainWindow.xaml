@@ -8,11 +8,27 @@
         mc:Ignorable="d"
         Title="{Binding WindowTitle}"
         ResizeMode="NoResize"
-        Height="450" Width="800">
+        Height="450" Width="800"
+        Background="#C0FFFFFF" 
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        <ContentControl Content="{Binding CurrentView}"/>
+        <!-- 사용자 정의 제목 표시줄 -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Background="#FF0288D1" Height="30" VerticalAlignment="Top" MouseDown="TitleBar_MouseDown">
+            <TextBlock Text="{Binding WindowTitle}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White" />
+            <Button Content="X" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CloseButton_Click" Background="Transparent" Foreground="White" BorderBrush="Transparent" />
+        </Grid>
+
+        <!-- 메인 콘텐츠 -->
+        <ContentControl Content="{Binding CurrentView}" Grid.Row="1"/>
     </Grid>
 </Window>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lnsystem_Study04(Style)", "lnsystem_Study04(Style)\lnsystem_Study04(Style).csproj", "{40A5ACBF-1823-47C8-9893-9C6C869CE703}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lnsystem_Study04(Style)", "lnsystem_Study04(Style)\lnsystem_Study04(Style).csproj", "{40A5ACBF-1823-47C8-9893-9C6C869CE703}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

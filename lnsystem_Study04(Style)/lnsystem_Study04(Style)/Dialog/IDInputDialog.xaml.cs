@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace lnsystem_Study04_Style_.Dialog
@@ -53,6 +54,8 @@ namespace lnsystem_Study04_Style_.Dialog
         /// </summary>
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(IDTextBox.Text)) return;
+
             int byteCount = Encoding.UTF8.GetByteCount(IDTextBox.Text);
             if (byteCount <= 10)
             {
@@ -63,6 +66,19 @@ namespace lnsystem_Study04_Style_.Dialog
             {
                 MessageBox.Show("ID는 10바이트를 초과할 수 없습니다.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
 
         #endregion

@@ -23,7 +23,7 @@ namespace lnsystem_Study04_Style_.Converters
         {
             if (value is bool isLocal)
             {
-                return isLocal ? Brushes.LightBlue : Brushes.LightGray;
+                return isLocal ? Brushes.Gold : Brushes.LightBlue;
             }
             return Brushes.LightGray;
         }

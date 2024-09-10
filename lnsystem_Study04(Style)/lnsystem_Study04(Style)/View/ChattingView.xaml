@@ -9,56 +9,187 @@
 
     <UserControl.Resources>
         <converters:BooleanToColorConverter x:Key="BooleanToColorConverter" />
+        <Style x:Key="ChatBubbleStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Background" Value="{Binding IsLocal, Converter={StaticResource BooleanToColorConverter}}" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" Opacity="0.5" BlurRadius="10" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.3" />
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:0.3" />
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:0.3" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.3" />
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.3" />
+                            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.3" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+  <Grid Background="LightSkyBlue">
+    <!-- 불투명한 흰색 배경 -->
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="5*"/>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="5*"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
 
-        <!-- 채팅 메시지를 표시할 리스트 -->
-        <ListBox
-            Grid.Column="0" Grid.Row="0"
-            Grid.ColumnSpan="2"
-            ItemsSource="{Binding MessagesModel}"
-            Loaded="ListBox_Loaded"
-            ScrollViewer.ScrollChanged="ListBox_ScrollChanged">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="450" />
-                            <ColumnDefinition Width="150" />
-                        </Grid.ColumnDefinitions>
-                        <Border CornerRadius="10" Padding="10" Margin="5" 
-                                Grid.Column="{Binding IsLocal, Converter={StaticResource BooleanToGridColumnConverter}}"
-                                Background="{Binding IsLocal, Converter={StaticResource BooleanToColorConverter}}">
-                            <StackPanel>
-                                <TextBlock Text="{Binding ID}" FontWeight="Bold" />
-                                <TextBlock Text="{Binding Chat}" TextWrapping="Wrap" />
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+    <!-- 채팅 메시지를 표시할 리스트 -->
+    <ListBox
+        Grid.Column="0" Grid.Row="0"
+        Grid.ColumnSpan="2"
+        ItemsSource="{Binding MessagesModel}"
+        Loaded="ListBox_Loaded"
+        ScrollViewer.ScrollChanged="ListBox_ScrollChanged"
+        Background="Transparent"
+        VerticalContentAlignment="Bottom"
+        Margin="0,0,0,0"
+        BorderThickness="0"
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        BorderBrush="Transparent">
+        <ListBox.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" />
+            </ItemsPanelTemplate>
+        </ListBox.ItemsPanel>
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="182" />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
+                    <Border Style="{StaticResource ChatBubbleStyle}"
+                            Grid.Column="{Binding IsLocal, Converter={StaticResource BooleanToGridColumnConverter}}">
+                        <StackPanel>
+                            <TextBlock Text="{Binding ID}" FontWeight="Bold" Foreground="Black" />
+                            <!-- 글씨 색상을 검정색으로 변경 -->
+                            <TextBlock Text="{Binding Chat}" TextWrapping="Wrap" Foreground="Black" />
+                            <!-- 글씨 색상을 검정색으로 변경 -->
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <DataTemplate.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
 
-        <!-- 텍스트 입력 상자 -->
+
+<!-- 텍스트 입력 상자 -->
+    <Border Grid.Row="1" Grid.Column="0" Margin="10,0,10,0" Height="40" VerticalAlignment="Center" CornerRadius="20" Background="White">
         <TextBox
             x:Name="InputTextBox"
-            Grid.Row="1" Grid.Column="0"
             Text="{Binding NewMessage, UpdateSourceTrigger=PropertyChanged}"
             HorizontalContentAlignment="Stretch"
-            KeyDown="TextBox_KeyDown" />
+            KeyDown="TextBox_KeyDown"
+            Background="Transparent" 
+            Foreground="Black"
+            BorderBrush="Transparent"
+            BorderThickness="0"
+            Padding="10"
+            FocusVisualStyle="{x:Null}" />
+    </Border>
 
-        <!-- 전송 버튼 -->
-        <Button Grid.Row="1" Grid.Column="1" Content="전송" Command="{Binding SendMessageCommand}" />
-    </Grid>
+    <!-- 전송 버튼 -->
+    <Border Grid.Row="1" Grid.Column="1" Margin="10,0,10,0" Height="40" VerticalAlignment="Center" CornerRadius="20" Background="#0288D1">
+        <Button Content="전송" Command="{Binding SendMessageCommand}" 
+        Background="Transparent" Foreground="White" BorderBrush="Transparent" Padding="10" FocusVisualStyle="{x:Null}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="20">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Effect>
+                <DropShadowEffect Color="Black" Opacity="0.3" BlurRadius="10" />
+            </Button.Effect>
+            <Button.RenderTransformOrigin>0.5,0.5</Button.RenderTransformOrigin>
+            <Button.RenderTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+            </Button.RenderTransform>
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.1" Duration="0:0:0.2" AutoReverse="True" />
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.1" Duration="0:0:0.2" AutoReverse="True" />
+                            <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#0277BD" Duration="0:0:0.2" AutoReverse="True" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:0.2" />
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:0.2" />
+                            <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#039BE5" Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.2" />
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.2" />
+                            <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#0288D1" Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
+    </Border>
+</Grid>
+
 </UserControl>
