@@ -32,10 +32,10 @@ namespace lnsystem_Study04_Style_.ViewModel
         /// </summary>
         private void SocketClientClick()
         {
-            var idInputDialog = new IDInputDialog();
+            var idInputDialog = new IdInputDialog();
             if (idInputDialog.ShowDialog() == true)
             {
-                UserDataModel.Instance.LocalID = idInputDialog.UserID;
+                UserDataModel.Instance.LocalId = idInputDialog.UserId;
                 MainWindowViewModel.Instance?.ChangeTitle("Socket UDP Client");
                 MainWindowViewModel.Instance?.ChangeView(new ChattingView(Status.Client));
             }
@@ -46,7 +46,7 @@ namespace lnsystem_Study04_Style_.ViewModel
         /// </summary>
         private void SocketServerClick()
         {
-            UserDataModel.Instance.LocalID = "Server"; // 서버는 강제로 ID를 서버로 할당
+            UserDataModel.Instance.LocalId = "Server"; // 서버는 강제로 ID를 서버로 할당
             MainWindowViewModel.Instance?.ChangeTitle("Socket UDP Server");
             MainWindowViewModel.Instance?.ChangeView(new ChattingView(Status.Server));
         }

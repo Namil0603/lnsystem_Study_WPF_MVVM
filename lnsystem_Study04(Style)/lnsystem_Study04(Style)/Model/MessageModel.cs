@@ -5,9 +5,9 @@ namespace lnsystem_Study04_Style_.Model
 {
     public class MessageModel
     {
-        public static MessageModel Instance;
-        public ObservableCollection<Message> MessagesModel { get; }
-        public string InputTextBox { get; set; }
+        public static MessageModel? Instance;
+        public ObservableCollection<Message>? MessagesModel { get; }
+        public string? InputTextBox { get; set; }
 
         public MessageModel()
         {

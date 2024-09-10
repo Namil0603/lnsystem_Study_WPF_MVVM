@@ -19,7 +19,7 @@ namespace lnsystem_Study04_Style_.Converters
         /// <param name="parameter">추가 매개변수</param>
         /// <param name="culture">문화 정보</param>
         /// <returns>변환된 HorizontalAlignment 값</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is bool isLocal)
             {
@@ -37,7 +37,7 @@ namespace lnsystem_Study04_Style_.Converters
         /// <param name="culture">문화 정보</param>
         /// <returns>지원되지 않음</returns>
         /// <exception cref="NotImplementedException">항상 발생</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

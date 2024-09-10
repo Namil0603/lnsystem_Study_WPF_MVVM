@@ -11,7 +11,6 @@ namespace lnsystem_Study04_Style_.Tools.Socket.Client
 
         private readonly UdpClient _udpClient;
         private readonly IPEndPoint _serverEndPoint;
-        private readonly IPEndPoint _localEndPoint;
 
         #endregion
 
@@ -26,8 +25,8 @@ namespace lnsystem_Study04_Style_.Tools.Socket.Client
         public SocketClient(string serverIp, int serverPort)
         {
             _serverEndPoint = new IPEndPoint(IPAddress.Parse(serverIp), serverPort);
-            _localEndPoint = new IPEndPoint(IPAddress.Any, 0); // 로컬 포트에 바인딩
-            _udpClient = new UdpClient(_localEndPoint);
+            var localEndPoint = new IPEndPoint(IPAddress.Any, 0); // 로컬 포트에 바인딩
+            _udpClient = new UdpClient(localEndPoint);
             Task.Run(ReceiveMessagesAsync);
 
             // 클라이언트가 처음 시작할 때 서버로 특정 메시지를 보냄
@@ -61,7 +60,7 @@ namespace lnsystem_Study04_Style_.Tools.Socket.Client
             while (true)
             {
                 var result = await _udpClient.ReceiveAsync();
-                var (id, chat) = ICDMessageConverter.ParseDataPacket(result.Buffer);
+                var (id, chat) = IcdMessageConverter.ParseDataPacket(result.Buffer);
                 MessageReceived?.Invoke(id, chat);
             }
         }

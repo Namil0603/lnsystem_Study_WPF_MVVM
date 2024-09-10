@@ -67,6 +67,10 @@ namespace lnsystem_Study04_Style_.Manager
                 _socketClient = new SocketClient(ServerIp, ServerPort);
                 _socketClient.MessageReceived += OnMessageReceived;
             }
+            else
+            {
+                throw new ArgumentException("올바르지 않은 상태입니다.", nameof(status));
+            }
         }
 
         /// <summary>
@@ -74,7 +78,7 @@ namespace lnsystem_Study04_Style_.Manager
         /// </summary>
         /// <param name="id">보낸 사람의 ID</param>
         /// <param name="chat">수신된 채팅 메시지</param>
-        private void OnMessageReceived(string id, string chat)
+        private void OnMessageReceived(string? id, string? chat)
         {
             var message = new Message(id, chat, false);
             Application.Current.Dispatcher.Invoke(() =>
@@ -96,7 +100,7 @@ namespace lnsystem_Study04_Style_.Manager
         {
             if (string.IsNullOrWhiteSpace(message.Chat)) return;
 
-            var icd = ICDMessageConverter.CreateDataPacket(message.ID, message.Chat);
+            var icd = IcdMessageConverter.CreateDataPacket(message.Id, message.Chat);
 
             if (status == Status.Server && _socketServer != null)
             {
@@ -105,6 +109,10 @@ namespace lnsystem_Study04_Style_.Manager
             else if (status == Status.Client && _socketClient != null)
             {
                 await _socketClient.SendMessageAsync(icd);
+            }
+            else
+            {
+                throw new ArgumentException("올바르지 않은 상태입니다.", nameof(status));
             }
         }
 

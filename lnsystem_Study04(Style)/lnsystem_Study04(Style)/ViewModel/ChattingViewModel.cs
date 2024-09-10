@@ -34,15 +34,15 @@ namespace lnsystem_Study04_Style_.ViewModel
 
         #region 속성
 
-        public Status CurrentStatus { get; }
-        public ObservableCollection<Message> MessagesModel => MessageModel.Instance.MessagesModel;
+        private Status CurrentStatus { get; }
+        public ObservableCollection<Message>? MessagesModel => MessageModel.Instance?.MessagesModel;
 
-        public string NewMessage
+        public string? NewMessage
         {
-            get => MessageModel.Instance.InputTextBox;
+            get => MessageModel.Instance?.InputTextBox;
             set
             {
-                MessageModel.Instance.InputTextBox = value;
+                if (MessageModel.Instance != null) MessageModel.Instance.InputTextBox = value;
                 OnPropertyChanged();
             }
         }
@@ -74,8 +74,8 @@ namespace lnsystem_Study04_Style_.ViewModel
         {
             if (string.IsNullOrWhiteSpace(NewMessage)) return;
 
-            var message = new Message(UserDataModel.Instance.LocalID, NewMessage, true);
-            MessageModel.Instance.MessagesModel.Add(message);
+            var message = new Message(UserDataModel.Instance.LocalId, NewMessage, true);
+            MessageModel.Instance?.MessagesModel?.Add(message);
             await _chatManager.SendMessageAsync(message, CurrentStatus);
 
             NewMessage = string.Empty;
@@ -89,7 +89,7 @@ namespace lnsystem_Study04_Style_.ViewModel
         private void OnMessageReceived(Message message)
         {
             message.IsLocal = false;
-            Application.Current.Dispatcher.BeginInvoke(() => MessageModel.Instance.MessagesModel.Add(message));
+            Application.Current.Dispatcher.BeginInvoke(() => MessageModel.Instance?.MessagesModel?.Add(message));
         }
 
         #endregion

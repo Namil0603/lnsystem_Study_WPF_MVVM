@@ -2,20 +2,20 @@
 {
     public class Message
     {
-        public Message(string id, string newMessage, bool isLocal)
+        public Message(string? id, string? newMessage, bool isLocal)
         {
-            ID = id;
+            Id = id;
             Chat = newMessage;
             IsLocal = isLocal;
         }
 
-        public string ID { get; set; }
-        public string Chat { get; set; }
+        public string? Id { get; set; }
+        public string? Chat { get; set; }
         public bool IsLocal { get; set; }
 
         public override string ToString()
         {
-            return $"{ID} : {Chat}";
+            return $"{Id} : {Chat}";
         }
     }
 }

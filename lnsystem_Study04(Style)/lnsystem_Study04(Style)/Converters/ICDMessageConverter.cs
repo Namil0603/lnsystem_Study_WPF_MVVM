@@ -7,18 +7,18 @@ namespace lnsystem_Study04_Style_.Converters
     /// 프로토콜은 ID(10바이트)와 채팅 메시지 길이(4바이트) 그리고 채팅 메시지로 구성됩니다.
     /// 한글을 전송하기 위해 ASCII가 아닌 UTF-8 인코딩을 사용합니다.
     /// </summary>
-    public static class ICDMessageConverter
+    public static class IcdMessageConverter
     {
         /// <summary>
         /// 주어진 ID와 채팅 메시지를 바탕으로 데이터 패킷을 생성합니다.
         /// </summary>
-        /// <param name="ID">사용자 ID</param>
+        /// <param name="id">사용자 ID</param>
         /// <param name="chatting">채팅 메시지</param>
         /// <returns>생성된 데이터 패킷</returns>
-        public static byte[] CreateDataPacket(string ID, string chatting)
+        public static byte[] CreateDataPacket(string? id, string? chatting)
         {
             // ID가 null이거나 비어 있는지 확인
-            if (string.IsNullOrEmpty(ID))
+            if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentException("ID는 null이거나 비어 있을 수 없습니다.");
             }
@@ -30,7 +30,7 @@ namespace lnsystem_Study04_Style_.Converters
             }
 
             // ID를 UTF-8 인코딩으로 변환
-            byte[] idBytes = Encoding.UTF8.GetBytes(ID);
+            byte[] idBytes = Encoding.UTF8.GetBytes(id);
             // ID의 바이트 길이가 10을 초과하는지 확인
             if (idBytes.Length > 10)
             {
@@ -81,7 +81,7 @@ namespace lnsystem_Study04_Style_.Converters
             // receivedBytes에서 ID 부분을 idBytes에 복사
             Buffer.BlockCopy(receivedBytes, 0, idBytes, 0, 10);
             // idBytes를 문자열로 변환하고, '\0'을 제거
-            string ID = Encoding.UTF8.GetString(idBytes).TrimEnd('\0');
+            string id = Encoding.UTF8.GetString(idBytes).TrimEnd('\0');
 
             // 채팅 메시지 길이 추출
             byte[] chatLengthBytes = new byte[4];
@@ -104,7 +104,7 @@ namespace lnsystem_Study04_Style_.Converters
             string chatting = Encoding.UTF8.GetString(chatBytes);
 
             // 추출된 ID와 채팅 메시지 반환
-            return (ID, chatting);
+            return (id, chatting);
         }
     }
 }

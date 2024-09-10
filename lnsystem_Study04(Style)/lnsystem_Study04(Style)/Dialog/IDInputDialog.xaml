@@ -1,4 +1,4 @@
-﻿<Window x:Class="lnsystem_Study04_Style_.Dialog.IDInputDialog"
+﻿<Window x:Class="lnsystem_Study04_Style_.Dialog.IdInputDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ID 입력" Height="220" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"

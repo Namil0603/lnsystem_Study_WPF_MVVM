@@ -8,14 +8,14 @@ namespace lnsystem_Study04_Style_.Dialog
     /// <summary>
     /// ID 입력 다이얼로그 창입니다.
     /// </summary>
-    public partial class IDInputDialog : Window
+    public partial class IdInputDialog : Window
     {
         #region 속성
 
         /// <summary>
         /// 사용자가 입력한 ID를 가져옵니다.
         /// </summary>
-        public string UserID { get; private set; }
+        public string? UserId { get; private set; }
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace lnsystem_Study04_Style_.Dialog
         /// <summary>
         /// IDInputDialog의 생성자입니다.
         /// </summary>
-        public IDInputDialog() => InitializeComponent();
+        public IdInputDialog() => InitializeComponent();
 
         #endregion
 
@@ -59,7 +59,7 @@ namespace lnsystem_Study04_Style_.Dialog
             int byteCount = Encoding.UTF8.GetByteCount(IDTextBox.Text);
             if (byteCount <= 10)
             {
-                UserID = IDTextBox.Text;
+                UserId = IDTextBox.Text;
                 DialogResult = true;
             }
             else

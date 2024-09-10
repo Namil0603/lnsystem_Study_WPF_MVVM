@@ -2,9 +2,9 @@
 {
     public class UserDataModel
     {
-        public static UserDataModel Instance;
+        public static UserDataModel Instance = null!;
         public UserDataModel() => Instance = this;
         
-        public string LocalID;
+        public string? LocalId;
     }
 }

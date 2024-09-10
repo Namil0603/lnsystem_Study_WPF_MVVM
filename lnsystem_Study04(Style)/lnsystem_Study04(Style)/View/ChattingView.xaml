@@ -105,7 +105,7 @@
                     <Border Style="{StaticResource ChatBubbleStyle}"
                             Grid.Column="{Binding IsLocal, Converter={StaticResource BooleanToGridColumnConverter}}">
                         <StackPanel>
-                            <TextBlock Text="{Binding ID}" FontWeight="Bold" Foreground="Black" />
+                            <TextBlock Text="{Binding Id}" FontWeight="Bold" Foreground="Black" />
                             <!-- 글씨 색상을 검정색으로 변경 -->
                             <TextBlock Text="{Binding Chat}" TextWrapping="Wrap" Foreground="Black" />
                             <!-- 글씨 색상을 검정색으로 변경 -->

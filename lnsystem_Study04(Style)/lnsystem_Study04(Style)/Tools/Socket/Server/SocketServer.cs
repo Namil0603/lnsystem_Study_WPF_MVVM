@@ -14,7 +14,6 @@ namespace lnsystem_Study04_Style_.Tools.Socket.Server
         #region 멤버 변수
 
         private readonly UdpClient _udpClient;
-        private readonly IPEndPoint _endPoint;
         private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly List<IPEndPoint> _clientEndPoints;
 
@@ -30,8 +29,8 @@ namespace lnsystem_Study04_Style_.Tools.Socket.Server
 
         public SocketServer(int port)
         {
-            _endPoint = new IPEndPoint(IPAddress.Any, port);
-            _udpClient = new UdpClient(_endPoint);
+            var endPoint = new IPEndPoint(IPAddress.Any, port);
+            _udpClient = new UdpClient(endPoint);
             _cancellationTokenSource = new CancellationTokenSource();
             _clientEndPoints = new List<IPEndPoint>();
         }
@@ -93,7 +92,7 @@ namespace lnsystem_Study04_Style_.Tools.Socket.Server
                         continue;
                     }
 
-                    var (id, chat) = ICDMessageConverter.ParseDataPacket(result.Buffer);
+                    var (id, chat) = IcdMessageConverter.ParseDataPacket(result.Buffer);
 
                     MessageReceived?.Invoke(id, chat);
 
