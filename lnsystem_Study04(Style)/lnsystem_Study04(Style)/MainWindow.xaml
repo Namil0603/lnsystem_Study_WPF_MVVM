@@ -1,11 +1,7 @@
 ﻿<Window x:Class="lnsystem_Study04_Style_.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:lnsystem_Study04_Style_"
         xmlns:viewModel="clr-namespace:lnsystem_Study04_Style_.ViewModel"
-        mc:Ignorable="d"
         Title="{Binding WindowTitle}"
         ResizeMode="NoResize"
         Height="450" Width="800"
@@ -13,10 +9,12 @@
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
+
     <!-- ViewModel을 DataContext로 설정 -->
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
+
     <Grid>
         <!-- 사용자 정의 제목 표시줄 -->
         <Grid.RowDefinitions>
@@ -25,11 +23,25 @@
         </Grid.RowDefinitions>
 
         <!-- 제목 표시줄 -->
-        <Grid Background="#FF0288D1" Height="30" VerticalAlignment="Top" MouseDown="TitleBar_MouseDown">
+        <Grid
+            Background="#FF0288D1"
+            Height="30" 
+            VerticalAlignment="Top" 
+            MouseDown="TitleBar_MouseDown">
+
             <!-- 윈도우 제목 바인딩 -->
-            <TextBlock Text="{Binding WindowTitle}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White" />
+            <TextBlock 
+                Text="{Binding WindowTitle}"
+                VerticalAlignment="Center" Margin="10,0,0,0" 
+                Foreground="White" />
+
             <!-- 닫기 버튼 -->
-            <Button Content="X" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CloseButton_Click" Background="Transparent" Foreground="White" BorderBrush="Transparent" />
+            <Button
+                Content="X"
+                Width="30" Height="30" 
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Click="CloseButton_Click"
+                Background="Transparent" Foreground="White" BorderBrush="Transparent" />
         </Grid>
 
         <!-- 메인 콘텐츠 -->
