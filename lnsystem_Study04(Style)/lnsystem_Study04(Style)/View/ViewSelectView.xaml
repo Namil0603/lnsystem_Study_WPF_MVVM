@@ -7,29 +7,41 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <!-- ViewModel을 DataContext로 설정 -->
     <UserControl.DataContext>
         <viewModel:ViewSelectViewModel/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
+        <!-- 버튼 스타일 정의 -->
         <Style TargetType="Button">
+            <!-- 배경색 설정 -->
             <Setter Property="Background" Value="#FF0288D1" />
+            <!-- 글자색 설정 -->
             <Setter Property="Foreground" Value="White" />
+            <!-- 글자 크기 설정 -->
             <Setter Property="FontSize" Value="16" />
+            <!-- 내부 여백 설정 -->
             <Setter Property="Padding" Value="10" />
+            <!-- 외부 여백 설정 -->
             <Setter Property="Margin" Value="10" />
+            <!-- 테두리 색상 설정 -->
             <Setter Property="BorderBrush" Value="Transparent" />
+            <!-- 그림자 효과 설정 -->
             <Setter Property="Effect">
                 <Setter.Value>
                     <DropShadowEffect Color="Black" Opacity="0.5" BlurRadius="10" />
                 </Setter.Value>
             </Setter>
+            <!-- 변환 중심 설정 -->
             <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+            <!-- 크기 변환 설정 -->
             <Setter Property="RenderTransform">
                 <Setter.Value>
                     <ScaleTransform ScaleX="1" ScaleY="1" />
                 </Setter.Value>
             </Setter>
+            <!-- 버튼 템플릿 설정 -->
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -37,13 +49,14 @@
                                 BorderBrush="{TemplateBinding BorderBrush}" 
                                 BorderThickness="1" 
                                 CornerRadius="8" 
-                            Padding="{TemplateBinding Padding}">
+                                Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
+                <!-- 마우스가 버튼에 들어갈 때 애니메이션 -->
                 <EventTrigger RoutedEvent="MouseEnter">
                     <BeginStoryboard>
                         <Storyboard>
@@ -52,6 +65,7 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
+                <!-- 마우스가 버튼을 떠날 때 애니메이션 -->
                 <EventTrigger RoutedEvent="MouseLeave">
                     <BeginStoryboard>
                         <Storyboard>
@@ -64,6 +78,7 @@
         </Style>
     </UserControl.Resources>
 
+    <!-- 그리드 레이아웃 설정 -->
     <Grid Background="#FF01579B">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -78,6 +93,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- 클라이언트 버튼 -->
         <Button Grid.Column="1" Grid.Row="1" Width="240" Height="80" Command="{Binding SocketClientClickCommand}">
             <Button.Content>
                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
@@ -86,6 +102,7 @@
             </Button.Content>
         </Button>
 
+        <!-- 서버 버튼 -->
         <Button Grid.Column="3" Grid.Row="1" Width="240" Height="80" Command="{Binding SocketServerClickCommand}">
             <Button.Content>
                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">

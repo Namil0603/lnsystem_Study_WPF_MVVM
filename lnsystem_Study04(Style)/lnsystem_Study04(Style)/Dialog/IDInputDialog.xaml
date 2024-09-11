@@ -4,6 +4,7 @@
         Title="ID 입력" Height="220" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         Background="#F0F0F0" BorderBrush="#007ACC" BorderThickness="2"
         AllowsTransparency="True" WindowStyle="None">
+    <!-- 윈도우 설정: 투명도 허용, 창 스타일 없음, 중앙에 위치, 크기 조정 불가 -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -16,6 +17,7 @@
         <!-- 사용자 정의 제목 표시줄 -->
         <Grid Background="#FF0288D1" Height="30" VerticalAlignment="Top" MouseDown="TitleBar_MouseDown" Grid.Row="0">
             <TextBlock Text="ID 입력" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White" />
+            <!-- 닫기 버튼 -->
             <Button Content="X" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CloseButton_Click" Background="Transparent" Foreground="White" BorderBrush="Transparent" />
         </Grid>
 
@@ -31,7 +33,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!-- ID 입력 안내 텍스트 -->
             <TextBlock Grid.Row="0" FontSize="16" FontWeight="Bold" Text="ID를 입력하세요:" Foreground="#007ACC" />
+
+            <!-- ID 입력 텍스트 박스 -->
             <TextBox x:Name="IDTextBox" Grid.Row="1" TextChanged="IDTextBox_TextChanged" Text=""
                      Background="#FFFFFF" Foreground="Black" BorderBrush="#007ACC" BorderThickness="1" Padding="5">
                 <TextBox.Style>
@@ -47,11 +52,16 @@
                         </Setter>
                     </Style>
                 </TextBox.Style>
+                <!-- 그림자 효과 -->
                 <TextBox.Effect>
                     <DropShadowEffect Color="Black" Opacity="0.2" BlurRadius="5" />
                 </TextBox.Effect>
             </TextBox>
+
+            <!-- 바이트 수 표시 텍스트 블록 -->
             <TextBlock x:Name="ByteCountTextBlock" Grid.Row="2" Foreground="#007ACC" FontStyle="Italic" />
+
+            <!-- 확인 버튼 -->
             <Button Grid.Row="3" Click="SubmitButton_Click" Background="#007ACC" Foreground="White" FontWeight="Bold" Padding="10" BorderBrush="Transparent" Content="확인"
                     RenderTransformOrigin="0.5,0.5">
                 <Button.Template>
@@ -61,9 +71,11 @@
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
+                <!-- 그림자 효과 -->
                 <Button.Effect>
                     <DropShadowEffect Color="Black" Opacity="0.2" BlurRadius="5" />
                 </Button.Effect>
+                <!-- 버튼 확대 애니메이션 -->
                 <Button.RenderTransform>
                     <ScaleTransform ScaleX="1" ScaleY="1" />
                 </Button.RenderTransform>
@@ -95,4 +107,3 @@
         </Grid>
     </Grid>
 </Window>
-

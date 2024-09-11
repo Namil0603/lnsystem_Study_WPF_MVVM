@@ -13,6 +13,7 @@
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
+    <!-- ViewModel을 DataContext로 설정 -->
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
@@ -23,8 +24,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!-- 제목 표시줄 -->
         <Grid Background="#FF0288D1" Height="30" VerticalAlignment="Top" MouseDown="TitleBar_MouseDown">
+            <!-- 윈도우 제목 바인딩 -->
             <TextBlock Text="{Binding WindowTitle}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White" />
+            <!-- 닫기 버튼 -->
             <Button Content="X" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CloseButton_Click" Background="Transparent" Foreground="White" BorderBrush="Transparent" />
         </Grid>
 
