@@ -69,7 +69,7 @@ namespace lnsystem_Study04_Style_.Manager
             }
             else
             {
-                throw new ArgumentException("올바르지 않은 상태입니다.", nameof(status));
+                MessageBox.Show("올바르지 않은 상태입니다.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -112,7 +112,7 @@ namespace lnsystem_Study04_Style_.Manager
             }
             else
             {
-                throw new ArgumentException("올바르지 않은 상태입니다.", nameof(status));
+                MessageBox.Show("올바르지 않은 상태입니다.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

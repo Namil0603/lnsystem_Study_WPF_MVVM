@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
@@ -36,10 +37,10 @@ namespace lnsystem_Study04_Style_.Converters
         /// <param name="parameter">추가 매개변수</param>
         /// <param name="culture">문화 정보</param>
         /// <returns>지원되지 않음</returns>
-        /// <exception cref="NotImplementedException">항상 발생</exception>
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("HorizontalAlignment 값을 Boolean으로 변환하는 것은 지원되지 않습니다.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+            return DependencyProperty.UnsetValue;
         }
 
         #endregion
