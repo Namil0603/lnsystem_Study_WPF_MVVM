@@ -24,11 +24,41 @@ namespace lnsystem_Study04_Style_.Dialog
         /// <summary>
         /// IDInputDialog의 생성자입니다.
         /// </summary>
-        public IdInputDialog() => InitializeComponent();
+        public IdInputDialog()
+        {
+            InitializeComponent();
+            this.Loaded += IdInputDialog_Loaded;
+            this.PreviewKeyDown += IdInputDialog_PreviewKeyDown;
+        }
 
         #endregion
 
         #region 이벤트 핸들러
+
+        /// <summary>
+        /// 다이얼로그가 로드될 때 호출됩니다.
+        /// </summary>
+        private void IdInputDialog_Loaded(object sender, RoutedEventArgs e)
+        {
+            IDTextBox.Focus();
+        }
+
+        /// <summary>
+        /// 키보드 키가 눌릴 때 호출됩니다.
+        /// </summary>
+        private void IdInputDialog_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true; // 이벤트가 더 이상 전파되지 않도록 처리
+                SubmitButton_Click(this, new RoutedEventArgs());
+            }
+            else if (e.Key == Key.Escape)
+            {
+                e.Handled = true; // 이벤트가 더 이상 전파되지 않도록 처리
+                CloseButton_Click(this, new RoutedEventArgs());
+            }
+        }
 
         /// <summary>
         /// ID 텍스트 박스의 내용이 변경될 때 호출됩니다.
@@ -61,6 +91,7 @@ namespace lnsystem_Study04_Style_.Dialog
             {
                 UserId = IDTextBox.Text;
                 DialogResult = true;
+                this.Close(); // 다이얼로그를 닫습니다.
             }
             else
             {
@@ -78,6 +109,7 @@ namespace lnsystem_Study04_Style_.Dialog
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            this.DialogResult = false; // 다이얼로그 결과를 false로 설정
             this.Close();
         }
 
