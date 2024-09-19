@@ -75,8 +75,29 @@
         </Style>
     </UserControl.Resources>
 
+    <!-- 애니메이션 리소스 정의 -->
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="UserControl.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <!-- 버튼 페이드인 애니메이션 -->
+                    <DoubleAnimation Storyboard.TargetName="ClientButton"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0" To="1" Duration="0:0:0.5" />
+                    <DoubleAnimation Storyboard.TargetName="ServerButton"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0" To="1" Duration="0:0:0.5" />
+                    <!-- 하단 텍스트 페이드인 애니메이션 -->
+                    <DoubleAnimation Storyboard.TargetName="FooterText"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0" To="1" Duration="0:0:0.5" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+
     <!-- 그리드 레이아웃 설정 -->
-    <Grid Background="#FF01579B">
+    <Grid Background="#429dd2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
@@ -85,13 +106,20 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- 타이틀 텍스트 -->
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Margin="0,50,0,0" FontSize="36" FontFamily="Comic Sans MS">
+            Linknine Talk
+        </TextBlock>
+
         <!-- 클라이언트 버튼 -->
-        <Button Grid.Column="1" Grid.Row="1" Width="240" Height="80" Command="{Binding SocketClientClickCommand}">
+        <Button x:Name="ClientButton" Grid.Column="1" Grid.Row="2" Width="200" Height="70" Command="{Binding SocketClientClickCommand}" Opacity="0">
             <Button.Content>
                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                     (UDP Socket)<LineBreak/>Client
@@ -100,7 +128,7 @@
         </Button>
 
         <!-- 서버 버튼 -->
-        <Button Grid.Column="3" Grid.Row="1" Width="240" Height="80" Command="{Binding SocketServerClickCommand}">
+        <Button x:Name="ServerButton" Grid.Column="3" Grid.Row="2" Width="200" Height="70" Command="{Binding SocketServerClickCommand}" Opacity="0">
             <Button.Content>
                 <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                     (UDP Socket)<LineBreak/>Server
@@ -108,5 +136,9 @@
             </Button.Content>
         </Button>
 
+        <!-- Made by 텍스트 -->
+        <TextBlock x:Name="FooterText" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="5" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White" Margin="0,20,0,0" Opacity="0">
+            ⓒ 2024. HyunSooKim All rights reserved.
+        </TextBlock>
     </Grid>
 </UserControl>

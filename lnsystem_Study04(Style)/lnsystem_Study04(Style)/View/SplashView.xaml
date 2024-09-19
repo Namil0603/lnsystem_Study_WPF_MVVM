@@ -8,11 +8,11 @@
             <!-- 이미지 페이드 아웃 애니메이션 -->
             <DoubleAnimation Storyboard.TargetName="SplashImage"
                              Storyboard.TargetProperty="Opacity"
-                             From="1" To="0" Duration="0:0:1" BeginTime="0:0:1" />
-            <!-- 텍스트 페이드 아웃 애니메이션 -->
-            <DoubleAnimation Storyboard.TargetName="SplashText"
-                             Storyboard.TargetProperty="Opacity"
-                             From="1" To="0" Duration="0:0:1" BeginTime="0:0:1" />
+                             From="1" To="0" Duration="0:0:0.5" BeginTime="0:0:1" />
+            <!-- 텍스트 이동 애니메이션 -->
+            <ThicknessAnimation Storyboard.TargetName="SplashText"
+                                Storyboard.TargetProperty="Margin"
+                                From="0,340,0,0" To="0,50,0,0" Duration="0:0:1" BeginTime="0:0:1.5" />
         </Storyboard>
     </UserControl.Resources>
 
