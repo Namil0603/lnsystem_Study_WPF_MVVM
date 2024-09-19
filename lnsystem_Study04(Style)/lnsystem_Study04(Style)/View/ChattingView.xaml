@@ -120,7 +120,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="300" />
-                            <ColumnDefinition Width="182" />
+                            <ColumnDefinition Width="152" />
                             <ColumnDefinition Width="300" />
                         </Grid.ColumnDefinitions>
                         <!-- 채팅 말풍선 -->
