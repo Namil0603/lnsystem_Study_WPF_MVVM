@@ -5,7 +5,7 @@
         Title="{Binding WindowTitle}"
         ResizeMode="NoResize"
         Height="450" Width="800"
-        Background="#FF0288D1" 
+        Background="Transparent"
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
@@ -14,71 +14,77 @@
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Border Background="#429dd2" CornerRadius="20" BorderThickness="0" Padding="7">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <Grid
-            Background="#FF0288D1"
-            Height="30" 
-            VerticalAlignment="Top" 
-            MouseDown="TitleBar_MouseDown">
+            <Grid
+                Background="#429dd2"
+                Height="30" 
+                VerticalAlignment="Top" 
+                MouseDown="TitleBar_MouseDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="21*"/>
+                    <ColumnDefinition Width="241*"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock 
-                Text="{Binding WindowTitle}"
-                VerticalAlignment="Center" Margin="10,0,0,0" 
-                Foreground="White" />
+                <TextBlock 
+                    Text="{Binding WindowTitle}"
+                    VerticalAlignment="Center" Margin="10,0,0,0" 
+                    Foreground="White" Grid.ColumnSpan="2" />
 
-            <!-- 최소화 버튼 -->
-            <Button
-                Content="_"
-                Width="30" Height="30" 
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Command="{Binding MinimizeCommand}"
-                Background="Transparent" Foreground="White" BorderBrush="Transparent"
-                Margin="0,0,30,0">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Border x:Name="border" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="Gray"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+                <!-- 최소화 버튼 -->
+                <Button
+                    Content="_"
+                    Width="30" Height="30" 
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Command="{Binding MinimizeCommand}"
+                    Background="Transparent" Foreground="White" BorderBrush="Transparent"
+                    Margin="663,0,0,0" Grid.Column="1">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border x:Name="border" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="Gray"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
 
-            <!-- 닫기 버튼 -->
-            <Button
-                Content="X"
-                Width="30" Height="30" 
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Command="{Binding CloseCommand}"
-                Background="Transparent" Foreground="White" BorderBrush="Transparent">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Border x:Name="border" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="Red"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+                <!-- 닫기 버튼 -->
+                <Button
+                    Content="X"
+                    Width="30" Height="30" 
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Command="{Binding CloseCommand}"
+                    Background="Transparent" Foreground="White" BorderBrush="Transparent" Grid.Column="1" Margin="693,0,0,0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border x:Name="border" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="Red"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+
+            <ContentControl Content="{Binding CurrentView}" Grid.Row="1"/>
         </Grid>
-
-        <ContentControl Content="{Binding CurrentView}" Grid.Row="1"/>
-    </Grid>
+    </Border>
 </Window>
