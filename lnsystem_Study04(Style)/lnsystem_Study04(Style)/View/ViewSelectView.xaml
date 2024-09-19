@@ -12,7 +12,7 @@
         <!-- 버튼 스타일 정의 -->
         <Style TargetType="Button">
             <!-- 배경색 설정 -->
-            <Setter Property="Background" Value="#FF0288D1" />
+            <Setter Property="Background" Value="#07AAEB" />
             <!-- 글자색 설정 -->
             <Setter Property="Foreground" Value="White" />
             <!-- 글자 크기 설정 -->
