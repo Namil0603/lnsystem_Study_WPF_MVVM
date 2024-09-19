@@ -1,4 +1,7 @@
 ﻿using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using lnsystem_Study04_Style_.Commands;
 using lnsystem_Study04_Style_.View;
 
 namespace lnsystem_Study04_Style_.ViewModel
@@ -35,6 +38,9 @@ namespace lnsystem_Study04_Style_.ViewModel
             }
         }
 
+        public ICommand MinimizeCommand { get; }
+        public ICommand CloseCommand { get; }
+
         #endregion
 
         #region 생성자
@@ -43,25 +49,20 @@ namespace lnsystem_Study04_Style_.ViewModel
         {
             Instance = this;
             ShowSplashScreen();
+
+            MinimizeCommand = new RelayCommand(MinimizeWindow);
+            CloseCommand = new RelayCommand(CloseWindow);
         }
 
         #endregion
 
         #region 공개 메서드
 
-        /// <summary>
-        /// 현재 뷰를 변경합니다.
-        /// </summary>
-        /// <param name="view">변경할 뷰 객체</param>
         public void ChangeView(object view)
         {
             CurrentView = view;
         }
 
-        /// <summary>
-        /// 윈도우 타이틀을 변경합니다.
-        /// </summary>
-        /// <param name="title">변경할 타이틀 문자열</param>
         public void ChangeTitle(string title)
         {
             WindowTitle = title;
@@ -76,11 +77,20 @@ namespace lnsystem_Study04_Style_.ViewModel
             CurrentView = new SplashView();
             WindowTitle = "LinkNine Talk";
 
-            // 스플래시 화면을 3초 동안 표시
             await Task.Delay(3000);
 
-            CurrentView = new ViewSelectView(); // 메인 콘텐츠 뷰로 전환
+            CurrentView = new ViewSelectView();
             WindowTitle = "Client/Server Select";
+        }
+
+        private void MinimizeWindow()
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+
+        private void CloseWindow()
+        {
+            Application.Current.MainWindow.Close();
         }
 
         #endregion
