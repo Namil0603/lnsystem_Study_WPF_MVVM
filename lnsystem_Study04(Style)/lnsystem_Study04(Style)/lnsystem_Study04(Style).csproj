@@ -11,7 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icon.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icon.jpg" />
   </ItemGroup>
 
 </Project>

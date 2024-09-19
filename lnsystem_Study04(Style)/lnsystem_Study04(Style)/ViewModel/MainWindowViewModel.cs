@@ -1,4 +1,5 @@
-﻿using lnsystem_Study04_Style_.View;
+﻿using System.Threading.Tasks;
+using lnsystem_Study04_Style_.View;
 
 namespace lnsystem_Study04_Style_.ViewModel
 {
@@ -41,8 +42,7 @@ namespace lnsystem_Study04_Style_.ViewModel
         public MainWindowViewModel()
         {
             Instance = this;
-            CurrentView = new ViewSelectView();
-            WindowTitle = "Client/Server Select";
+            ShowSplashScreen();
         }
 
         #endregion
@@ -65,6 +65,22 @@ namespace lnsystem_Study04_Style_.ViewModel
         public void ChangeTitle(string title)
         {
             WindowTitle = title;
+        }
+
+        #endregion
+
+        #region 비공개 메서드
+
+        private async void ShowSplashScreen()
+        {
+            CurrentView = new SplashView();
+            WindowTitle = "LinkNine Talk";
+
+            // 스플래시 화면을 3초 동안 표시
+            await Task.Delay(3000);
+
+            CurrentView = new ViewSelectView(); // 메인 콘텐츠 뷰로 전환
+            WindowTitle = "Client/Server Select";
         }
 
         #endregion

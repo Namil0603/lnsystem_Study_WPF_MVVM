@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="lnsystem_Study04_Style_.View.SplashView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="450" Width="800">
+    <!-- 애니메이션 리소스 정의 -->
+    <UserControl.Resources>
+        <Storyboard x:Key="FadeOutStoryboard">
+            <!-- 이미지 페이드 아웃 애니메이션 -->
+            <DoubleAnimation Storyboard.TargetName="SplashImage"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0" Duration="0:0:1" BeginTime="0:0:1" />
+            <!-- 텍스트 페이드 아웃 애니메이션 -->
+            <DoubleAnimation Storyboard.TargetName="SplashText"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0" Duration="0:0:1" BeginTime="0:0:1" />
+        </Storyboard>
+    </UserControl.Resources>
+
+    <!-- 메인 그리드 -->
+    <Grid x:Name="SplashGrid" Background="#429dd2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 이미지 -->
+        <Image x:Name="SplashImage" 
+               Source="/Icon.jpg" 
+               Stretch="Uniform" 
+               Width="400" 
+               Height="225" 
+               VerticalAlignment="Top" 
+               HorizontalAlignment="Center" 
+               Grid.Row="0" 
+               Margin="0,70,0,0" />
+
+        <!-- 텍스트 -->
+        <TextBlock x:Name="SplashText" 
+                   Text="Linknine Talk" 
+                   FontSize="36" 
+                   FontFamily="Comic Sans MS"
+                   Foreground="White" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   Margin="0,340,0,0" 
+                   Grid.RowSpan="2" />
+    </Grid>
+</UserControl>
